@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "975499408581",
+    "project_id": "gdg-vizag-f9bf0",
+    "storage_bucket": "gdg-vizag-f9bf0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:975499408581:android:96b7a0ceb68b3b1457ecac",
+        "android_client_info": {
+          "package_name": "com.lrm.gdgvizag"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "975499408581-vg4j5kv9pngm8ap14jm2oqe0qg1ivj52.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC97SwdfkLXC1I2pihpIpEA8pq8JEL5DME"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "975499408581-vg4j5kv9pngm8ap14jm2oqe0qg1ivj52.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
