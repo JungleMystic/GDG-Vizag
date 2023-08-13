@@ -19,56 +19,44 @@
             app:lottie_repeatMode="reverse"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="-50dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/coding_anim"
+            android:layout_marginBottom="-40dp"
+            app:layout_constraintHorizontal_bias="0.4"/>
 
-        <TextView
-            android:id="@+id/welcome_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/to_text"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/coding_anim"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:lottie_rawRes="@raw/coding_anim"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="20dp"
-            android:text="@string/welcome"
-            android:textSize="40sp"
-            android:textColor="@color/blue"
-            android:fontFamily="@font/gotham_rounded_bold"/>
-
-        <TextView
-            android:id="@+id/to_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/app_logo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="-10dp"
-            android:text="@string/to"
-            android:textSize="40sp"
-            android:textColor="@color/blue"
-            android:fontFamily="@font/gotham_rounded_bold"/>
+            app:layout_constraintBottom_toTopOf="@id/app_logo" />
 
         <ImageView
             android:id="@+id/app_logo"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:src="@drawable/app_logo"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/gdg_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="-20dp"
             android:contentDescription="@null"/>
 
         <TextView
             android:id="@+id/gdg_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/app_logo"
+            app:layout_constraintBottom_toTopOf="@id/login_card"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="-10dp"
+            android:layout_marginBottom="60dp"
             android:text="@string/app_name"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:textColor="@color/light_grey"
             android:fontFamily="@font/quicksand_bold"/>
 
@@ -81,12 +69,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="80dp"
             app:cardBackgroundColor="@color/white"
-            app:cardElevation="4dp"
+            app:cardElevation="5dp"
             app:strokeColor="@color/white"
             android:clickable="true"
-            android:focusable="true"
-            android:scaleX="0.9"
-            android:scaleY="0.9">
+            android:focusable="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
@@ -96,11 +82,11 @@
                 <ImageView
                     android:id="@+id/g_icon"
                     android:layout_width="20dp"
-                    android:layout_height="30dp"
+                    android:layout_height="20dp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/login_text"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginEnd="20dp"
                     android:src="@drawable/g_icon"
                     android:contentDescription="@null"/>
@@ -117,7 +103,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="@id/g_icon"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintVertical_bias="0.35"/>
+                    app:layout_constraintVertical_bias="0.85"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

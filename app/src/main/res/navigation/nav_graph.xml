@@ -20,8 +20,8 @@
             app:popUpTo="@id/splashScreenFragment"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_splashScreenFragment_to_serverConnectionFragment"
-            app:destination="@id/serverConnectionFragment"
+            android:id="@+id/action_splashScreenFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
             app:popUpTo="@id/splashScreenFragment"
             app:popUpToInclusive="true"
             app:enterAnim="@anim/enter_anim"
@@ -33,20 +33,20 @@
         android:id="@+id/loginFragment"
         android:name="com.lrm.gdgvizag.fragments.LoginFragment"
         android:label="LoginFragment"
-        tools:layout="@layout/fragment_login"/>
-    <fragment
-        android:id="@+id/serverConnectionFragment"
-        android:name="com.lrm.gdgvizag.fragments.ServerConnectionFragment"
-        android:label="ServerConnectionFragment"
-        tools:layout="@layout/fragment_server_connection">
+        tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_serverConnectionFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"
             app:enterAnim="@anim/enter_anim"
             app:exitAnim="@anim/exit_anim"
             app:popEnterAnim="@anim/pop_enter_anim"
-            app:popExitAnim="@anim/pop_exit_anim"
-            app:popUpTo="@id/serverConnectionFragment"
-            app:popUpToInclusive="true" />
+            app:popExitAnim="@anim/pop_exit_anim"/>
     </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.lrm.gdgvizag.fragments.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home"/>
 </navigation>
