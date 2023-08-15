@@ -31,10 +31,10 @@ class AppViewModel : ViewModel() {
     private val _imagesList = MutableLiveData(mutableListOf(""))
     val imagesList: LiveData<MutableList<String>> get() = _imagesList
 
-    private val _upcomingEventsList = MutableLiveData<MutableList<Event>>()
+    private val _upcomingEventsList = MutableLiveData<MutableList<Event>>(mutableListOf())
     val upcomingEventsList: LiveData<MutableList<Event>> get() = _upcomingEventsList
 
-    private val _pastEventsList = MutableLiveData<MutableList<Event>>()
+    private val _pastEventsList = MutableLiveData<MutableList<Event>>(mutableListOf())
     val pastEventsList: LiveData<MutableList<Event>> get() = _pastEventsList
 
     private fun setOnlineStatus(status: Boolean) {
@@ -93,9 +93,14 @@ class AppViewModel : ViewModel() {
     fun getEventsData() {
         db.collection("events").get()
             .addOnSuccessListener {documents ->
+
+                _upcomingEventsList.value?.clear()
+                _pastEventsList.value?.clear()
+
                 for (document in documents) {
-                    Log.i(TAG, "getEvents: Events Data -> ${document.data} ")
+                    Log.i(TAG, "getEvents: Events Data -> ${document.data}")
                     val event = document.toObject(Event::class.java)
+                    Log.i(TAG, "getEvents: Events Data event-> $event ")
                     if (event.eventStatus == "upcoming") {
                         _upcomingEventsList.value?.add(event)
                     } else if (event.eventStatus == "past") {
@@ -103,7 +108,9 @@ class AppViewModel : ViewModel() {
                     }
                 }
                 Log.i(TAG, "getEvents: Upcoming Events Data -> ${_upcomingEventsList.value} ")
+                _upcomingEventsList.postValue(_upcomingEventsList.value)
                 Log.i(TAG, "getEvents: Past Events Data -> ${_pastEventsList.value} ")
+                _pastEventsList.postValue(_pastEventsList.value)
             }
     }
 

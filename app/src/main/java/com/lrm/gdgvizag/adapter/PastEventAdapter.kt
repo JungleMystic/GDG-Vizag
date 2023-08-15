@@ -2,7 +2,6 @@ package com.lrm.gdgvizag.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -10,10 +9,10 @@ import com.lrm.gdgvizag.R
 import com.lrm.gdgvizag.databinding.EventListItemBinding
 import com.lrm.gdgvizag.model.Event
 
-class UpcomingEventAdapter(
+class PastEventAdapter(
     private val context: Context,
-    private val upcomingEventList: List<Event>
-): RecyclerView.Adapter<UpcomingEventAdapter.UpcomingViewHolder>() {
+    private val pastEventList: List<Event>
+): RecyclerView.Adapter<PastEventAdapter.UpcomingViewHolder>() {
 
     inner class UpcomingViewHolder(
         private val binding: EventListItemBinding
@@ -23,12 +22,6 @@ class UpcomingEventAdapter(
             binding.eventName.text = event.eventName
             binding.eventType.text = event.eventType
             binding.eventDate.text = event.eventDate
-            binding.eventRegistration.text = event.registrationText
-            if (event.registrationStatus == "open") {
-                binding.registerButton.visibility = View.VISIBLE
-            } else {
-                binding.registerButton.visibility = View.INVISIBLE
-            }
         }
     }
 
@@ -39,11 +32,11 @@ class UpcomingEventAdapter(
     }
 
     override fun getItemCount(): Int {
-        return upcomingEventList.size
+        return pastEventList.size
     }
 
     override fun onBindViewHolder(holder: UpcomingViewHolder, position: Int) {
-        val event = upcomingEventList[position]
+        val event = pastEventList[position]
         holder.bind(event)
     }
 }

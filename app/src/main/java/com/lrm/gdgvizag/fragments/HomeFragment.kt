@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.lrm.gdgvizag.adapter.MemoriesAdapter
+import com.lrm.gdgvizag.adapter.PastEventAdapter
 import com.lrm.gdgvizag.adapter.UpcomingEventAdapter
 import com.lrm.gdgvizag.constants.TAG
 import com.lrm.gdgvizag.databinding.FragmentHomeBinding
@@ -45,7 +47,7 @@ class HomeFragment : Fragment() {
 
         appViewModel.upcomingEventsList.observe(viewLifecycleOwner) {list ->
             Log.i(TAG, "Home Fragment upcomingEventList-> $list")
-            if (list != null) {
+            if (list.isNotEmpty()) {
                 binding.upcomingRv.visibility = View.VISIBLE
                 binding.noUpcomingEvents.visibility = View.INVISIBLE
                 binding.upcomingRv.adapter = UpcomingEventAdapter(requireContext(), list)
@@ -53,6 +55,23 @@ class HomeFragment : Fragment() {
                 binding.upcomingRv.visibility = View.INVISIBLE
                 binding.noUpcomingEvents.visibility = View.VISIBLE
             }
+        }
+
+        appViewModel.pastEventsList.observe(viewLifecycleOwner) {list ->
+            Log.i(TAG, "Home Fragment pastEventList-> $list")
+            if (list.isNotEmpty()) {
+                binding.pastRv.visibility = View.VISIBLE
+                binding.noPastEvents.visibility = View.INVISIBLE
+                binding.pastRv.adapter = PastEventAdapter(requireContext(), list)
+            } else {
+                binding.pastRv.visibility = View.INVISIBLE
+                binding.noPastEvents.visibility = View.VISIBLE
+            }
+        }
+
+        binding.profileIcon.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToProfileFragment()
+            this.findNavController().navigate(action)
         }
     }
 
