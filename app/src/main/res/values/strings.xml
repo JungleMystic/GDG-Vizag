@@ -6,4 +6,7 @@
     <string name="log_in_with_google">Sign in with Google</string>
     <string name="about_gdg_vizag">About GDG Vizag</string>
     <string name="about_gdg_vizag_info">GDG Vizag is a vibrant community of developer enthusiasts who are passionate about learning and building awesome products. The community comprises of professionals, freelancers and students from the ecosystem. This is a safe space where developers from all backgrounds come together to learn, share, ideate, collaborate and build awesome products with their expertise and learnings.</string>
+    <string name="upcoming_events">Upcoming Events</string>
+    <string name="register">Register</string>
+    <string name="there_are_no_upcoming_events">There are no upcoming events…</string>
 </resources>
