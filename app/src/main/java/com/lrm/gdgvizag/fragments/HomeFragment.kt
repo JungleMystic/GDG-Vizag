@@ -10,10 +10,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.lrm.gdgvizag.adapter.MemoriesAdapter
+import com.lrm.gdgvizag.adapter.PartnersAdapter
 import com.lrm.gdgvizag.adapter.PastEventAdapter
 import com.lrm.gdgvizag.adapter.UpcomingEventAdapter
 import com.lrm.gdgvizag.constants.TAG
 import com.lrm.gdgvizag.databinding.FragmentHomeBinding
+import com.lrm.gdgvizag.utils.InfoDialog
 import com.lrm.gdgvizag.viewmodel.AppViewModel
 
 class HomeFragment : Fragment() {
@@ -37,6 +39,8 @@ class HomeFragment : Fragment() {
 
         appViewModel.getImages()
         appViewModel.getEventsData()
+        appViewModel.getPartnersData()
+
         appViewModel.imagesList.observe(viewLifecycleOwner) {list ->
             //Log.i(TAG, "Home Fragment imagesList-> $list")
             binding.imageRv.apply {
@@ -66,6 +70,15 @@ class HomeFragment : Fragment() {
             } else {
                 binding.pastRv.visibility = View.INVISIBLE
                 binding.noPastEvents.visibility = View.VISIBLE
+            }
+        }
+
+        appViewModel.partnersList.observe(viewLifecycleOwner) { list ->
+            if (list.isNotEmpty()) {
+                binding.partnersRv.adapter = PartnersAdapter(requireContext(), list) {
+                    val infoDialog = InfoDialog(requireActivity(), requireContext())
+                    infoDialog.showInfo(it)
+                }
             }
         }
 

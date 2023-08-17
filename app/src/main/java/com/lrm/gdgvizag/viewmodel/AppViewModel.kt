@@ -18,6 +18,7 @@ import com.google.firebase.ktx.Firebase
 import com.lrm.gdgvizag.constants.TAG
 import com.lrm.gdgvizag.constants.USERS
 import com.lrm.gdgvizag.model.Event
+import com.lrm.gdgvizag.model.Partner
 import com.lrm.gdgvizag.model.User
 import kotlinx.coroutines.launch
 
@@ -36,6 +37,9 @@ class AppViewModel : ViewModel() {
 
     private val _pastEventsList = MutableLiveData<MutableList<Event>>(mutableListOf())
     val pastEventsList: LiveData<MutableList<Event>> get() = _pastEventsList
+
+    private val _partnersList = MutableLiveData<MutableList<Partner>>(mutableListOf())
+    val partnersList: LiveData<MutableList<Partner>> get() = _partnersList
 
     private fun setOnlineStatus(status: Boolean) {
         _onlineStatus.value = status
@@ -80,38 +84,61 @@ class AppViewModel : ViewModel() {
     }
 
     fun getImages() {
-        db.collection("gdg_memories").document("images").get()
-            .addOnSuccessListener {document ->
-                //Log.i(TAG, "getImages: Images data -> ${document.get("imageUrls")}")
-                _imagesList.value = document.get("imageUrls") as MutableList<String>?
-            }
-            .addOnFailureListener {exception ->
-                Log.i(TAG, "getImages: Error getting documents: ", exception)
-            }
+        viewModelScope.launch {
+            db.collection("gdg_memories").document("images").get()
+                .addOnSuccessListener { document ->
+                    //Log.i(TAG, "getImages: Images data -> ${document.get("imageUrls")}")
+                    _imagesList.value = document.get("imageUrls") as MutableList<String>?
+                }
+                .addOnFailureListener { exception ->
+                    Log.i(TAG, "getImages: Error getting documents: ", exception)
+                }
+        }
     }
 
     fun getEventsData() {
-        db.collection("events").get()
-            .addOnSuccessListener {documents ->
+        viewModelScope.launch {
+            db.collection("events").get()
+                .addOnSuccessListener { documents ->
 
-                _upcomingEventsList.value?.clear()
-                _pastEventsList.value?.clear()
+                    _upcomingEventsList.value?.clear()
+                    _pastEventsList.value?.clear()
 
-                for (document in documents) {
-                    Log.i(TAG, "getEvents: Events Data -> ${document.data}")
-                    val event = document.toObject(Event::class.java)
-                    Log.i(TAG, "getEvents: Events Data event-> $event ")
-                    if (event.eventStatus == "upcoming") {
-                        _upcomingEventsList.value?.add(event)
-                    } else if (event.eventStatus == "past") {
-                        _pastEventsList.value?.add(event)
+                    for (document in documents) {
+                        Log.i(TAG, "getEvents: Events Data -> ${document.data}")
+                        val event = document.toObject(Event::class.java)
+                        Log.i(TAG, "getEvents: Events Data event-> $event ")
+                        if (event.eventStatus == "upcoming") {
+                            _upcomingEventsList.value?.add(event)
+                        } else if (event.eventStatus == "past") {
+                            _pastEventsList.value?.add(event)
+                        }
                     }
+                    Log.i(TAG, "getEvents: Upcoming Events Data -> ${_upcomingEventsList.value} ")
+                    _upcomingEventsList.postValue(_upcomingEventsList.value)
+                    Log.i(TAG, "getEvents: Past Events Data -> ${_pastEventsList.value} ")
+                    _pastEventsList.postValue(_pastEventsList.value)
                 }
-                Log.i(TAG, "getEvents: Upcoming Events Data -> ${_upcomingEventsList.value} ")
-                _upcomingEventsList.postValue(_upcomingEventsList.value)
-                Log.i(TAG, "getEvents: Past Events Data -> ${_pastEventsList.value} ")
-                _pastEventsList.postValue(_pastEventsList.value)
-            }
+        }
+    }
+
+    fun getPartnersData() {
+        viewModelScope.launch {
+            db.collection("partners").get()
+                .addOnSuccessListener { documents ->
+
+                    _partnersList.value?.clear()
+
+                    for (document in documents) {
+                        Log.i(TAG, "getPartners: Partners Data -> ${document.data}")
+                        val partner = document.toObject(Partner::class.java)
+                        Log.i(TAG, "getPartner: Single Partner-> $partner")
+                        _partnersList.value?.add(partner)
+                    }
+                    Log.i(TAG, "getPartner: Partner List Data -> ${_partnersList.value} ")
+                    _partnersList.postValue(_partnersList.value)
+                }
+        }
     }
 
     fun checkUserInFirestore(context: Context, account: GoogleSignInAccount) {

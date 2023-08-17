@@ -11,4 +11,8 @@
     <string name="there_are_no_upcoming_events">There are no upcoming events…</string>
     <string name="past_events">Past Events</string>
     <string name="there_are_no_past_events">There are no past events</string>
+    <string name="profile">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="partners">Partners</string>
 </resources>
