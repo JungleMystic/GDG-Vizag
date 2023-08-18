@@ -16,6 +16,8 @@ import com.lrm.gdgvizag.adapter.PastEventAdapter
 import com.lrm.gdgvizag.adapter.UpcomingEventAdapter
 import com.lrm.gdgvizag.constants.TAG
 import com.lrm.gdgvizag.databinding.FragmentHomeBinding
+import com.lrm.gdgvizag.model.AboutGDG
+import com.lrm.gdgvizag.utils.AboutGDGDialog
 import com.lrm.gdgvizag.utils.OrganizerInfoDialog
 import com.lrm.gdgvizag.utils.PartnerInfoDialog
 import com.lrm.gdgvizag.viewmodel.AppViewModel
@@ -92,6 +94,16 @@ class HomeFragment : Fragment() {
                     infoDialog.showInfo(it)
                 }
             }
+        }
+
+        binding.fragmentLabel.setOnClickListener {
+            val infoDialog = AboutGDGDialog(requireActivity(), requireContext())
+            infoDialog.showInfo(AboutGDG())
+        }
+
+        binding.appIcon.setOnClickListener {
+            val infoDialog = AboutGDGDialog(requireActivity(), requireContext())
+            infoDialog.showInfo(AboutGDG())
         }
 
         binding.profileIcon.setOnClickListener {

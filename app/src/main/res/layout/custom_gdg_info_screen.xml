@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/gdg_info_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        app:cardBackgroundColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/gdg_logo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/app_logo" />
+
+            <TextView
+                android:id="@+id/gdg_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="GDG Vizag"
+                android:textSize="24sp"
+                android:fontFamily="@font/quicksand_bold"
+                app:layout_constraintTop_toTopOf="@id/gdg_logo"
+                app:layout_constraintBottom_toBottomOf="@id/gdg_logo"
+                app:layout_constraintStart_toEndOf="@id/gdg_logo"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/light_grey"
+                app:layout_constraintVertical_bias="0.45"/>
+
+            <TextView
+                android:id="@+id/about_gdg"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/gdg_logo"
+                app:layout_constraintStart_toStartOf="@id/gdg_logo"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="20dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/quicksand_regular"
+                android:textSize="16sp"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/website_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/website_icon"
+                app:layout_constraintStart_toStartOf="@id/gdg_logo"
+                app:layout_constraintTop_toBottomOf="@id/about_gdg"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:id="@+id/gdg_web_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/website_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/website_icon"
+                app:layout_constraintBottom_toBottomOf="@id/website_icon"
+                android:gravity="center_vertical"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="20dp"
+                android:textSize="15sp"
+                android:textColor="@color/gl_blue"/>
+
+            <LinearLayout
+                android:id="@+id/social_network_ll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/website_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="30dp"
+                android:gravity="center">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/gdg_fb"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/facebook_logo"/>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/gdg_twitter_x"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/twitter_x"
+                    android:layout_marginStart="20dp"/>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/gdg_linked_in"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/linkedin_logo"
+                    android:layout_marginStart="20dp"/>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/gdg_insta"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/insta_logo"
+                    android:layout_marginStart="20dp"/>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/gdg_youtube"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/youtube_icon"
+                    android:layout_marginStart="20dp"/>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
