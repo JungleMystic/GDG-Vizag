@@ -6,7 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import com.lrm.gdgvizag.R
 
-class LoadingDialog(val mActivity: Activity) {
+class LoadingDialog(private val mActivity: Activity) {
     private lateinit var loadDialog: AlertDialog
 
     fun startLoading() {

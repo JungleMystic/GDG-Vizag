@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/organizer_info_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        app:cardBackgroundColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/org_image_d"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/devfest_2023" />
+
+            <TextView
+                android:id="@+id/org_name_d"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="Bala Tripura Sundari Vemulakonda"
+                android:textSize="16sp"
+                android:fontFamily="@font/quicksand_bold"
+                app:layout_constraintTop_toTopOf="@id/org_image_d"
+                app:layout_constraintStart_toEndOf="@id/org_image_d"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="20dp"
+                android:maxLines="2"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/org_d"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="EKFRAZO TECHNOLOGIES"
+                android:textSize="14sp"
+                android:fontFamily="@font/quicksand_regular"
+                app:layout_constraintTop_toBottomOf="@id/org_name_d"
+                app:layout_constraintStart_toStartOf="@id/org_name_d"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:maxLines="2"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/org_title_d"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="WTM Ambassador"
+                android:textSize="14sp"
+                android:fontFamily="@font/quicksand_regular"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/org_d"
+                app:layout_constraintStart_toStartOf="@id/org_d"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:maxLines="2"
+                android:textColor="@color/black"/>
+
+            <LinearLayout
+                android:id="@+id/social_network_ll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/org_title_d"
+                app:layout_constraintStart_toStartOf="@id/org_title_d"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/twitter_x_d"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/twitter_x"
+                    android:visibility="gone"/>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/linked_in_d"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/linkedin_logo"
+                    android:visibility="gone"/>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/facebook_d"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/facebook_logo"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/about_me_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/about_me"
+                android:textSize="14sp"
+                android:fontFamily="@font/quicksand_bold"
+                app:layout_constraintTop_toBottomOf="@id/social_network_ll"
+                app:layout_constraintStart_toStartOf="@id/org_image_d"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/about_me_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/about_me"
+                android:textSize="14sp"
+                android:fontFamily="@font/quicksand_regular"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/about_me_title"
+                app:layout_constraintStart_toStartOf="@id/org_image_d"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/black"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,6 +18,7 @@ import com.google.firebase.ktx.Firebase
 import com.lrm.gdgvizag.constants.TAG
 import com.lrm.gdgvizag.constants.USERS
 import com.lrm.gdgvizag.model.Event
+import com.lrm.gdgvizag.model.Organizer
 import com.lrm.gdgvizag.model.Partner
 import com.lrm.gdgvizag.model.User
 import kotlinx.coroutines.launch
@@ -40,6 +41,9 @@ class AppViewModel : ViewModel() {
 
     private val _partnersList = MutableLiveData<MutableList<Partner>>(mutableListOf())
     val partnersList: LiveData<MutableList<Partner>> get() = _partnersList
+
+    private val _organizersList = MutableLiveData<MutableList<Organizer>>(mutableListOf())
+    val organizersList: LiveData<MutableList<Organizer>> get() = _organizersList
 
     private fun setOnlineStatus(status: Boolean) {
         _onlineStatus.value = status
@@ -140,6 +144,26 @@ class AppViewModel : ViewModel() {
                 }
         }
     }
+
+    fun getOrganizersData() {
+        viewModelScope.launch {
+            db.collection("organizers").get()
+                .addOnSuccessListener { documents ->
+
+                    _organizersList.value?.clear()
+
+                    for (document in documents) {
+                        Log.i(TAG, "getOrganizers: Organizers Data -> ${document.data}")
+                        val organizer = document.toObject(Organizer::class.java)
+                        Log.i(TAG, "getOrganizer: Single Organizer-> $organizer")
+                        _organizersList.value?.add(organizer)
+                    }
+                    Log.i(TAG, "getOrganizers: Organizers List Data -> ${_organizersList.value} ")
+                    _organizersList.postValue(_organizersList.value)
+                }
+        }
+    }
+
 
     fun checkUserInFirestore(context: Context, account: GoogleSignInAccount) {
 

@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.lrm.gdgvizag.R
 import com.lrm.gdgvizag.model.Partner
 
-class InfoDialog(val mActivity: Activity, val context: Context) {
+class PartnerInfoDialog(private val mActivity: Activity, val context: Context) {
 
     private lateinit var infoDialog: AlertDialog
 

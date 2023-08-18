@@ -10,12 +10,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.lrm.gdgvizag.adapter.MemoriesAdapter
+import com.lrm.gdgvizag.adapter.OrganizersAdapter
 import com.lrm.gdgvizag.adapter.PartnersAdapter
 import com.lrm.gdgvizag.adapter.PastEventAdapter
 import com.lrm.gdgvizag.adapter.UpcomingEventAdapter
 import com.lrm.gdgvizag.constants.TAG
 import com.lrm.gdgvizag.databinding.FragmentHomeBinding
-import com.lrm.gdgvizag.utils.InfoDialog
+import com.lrm.gdgvizag.utils.OrganizerInfoDialog
+import com.lrm.gdgvizag.utils.PartnerInfoDialog
 import com.lrm.gdgvizag.viewmodel.AppViewModel
 
 class HomeFragment : Fragment() {
@@ -40,6 +42,7 @@ class HomeFragment : Fragment() {
         appViewModel.getImages()
         appViewModel.getEventsData()
         appViewModel.getPartnersData()
+        appViewModel.getOrganizersData()
 
         appViewModel.imagesList.observe(viewLifecycleOwner) {list ->
             //Log.i(TAG, "Home Fragment imagesList-> $list")
@@ -76,7 +79,16 @@ class HomeFragment : Fragment() {
         appViewModel.partnersList.observe(viewLifecycleOwner) { list ->
             if (list.isNotEmpty()) {
                 binding.partnersRv.adapter = PartnersAdapter(requireContext(), list) {
-                    val infoDialog = InfoDialog(requireActivity(), requireContext())
+                    val infoDialog = PartnerInfoDialog(requireActivity(), requireContext())
+                    infoDialog.showInfo(it)
+                }
+            }
+        }
+
+        appViewModel.organizersList.observe(viewLifecycleOwner) { list ->
+            if (list.isNotEmpty()) {
+                binding.organizersRv.adapter = OrganizersAdapter(requireContext(), list) {
+                    val infoDialog = OrganizerInfoDialog(requireActivity(), requireContext())
                     infoDialog.showInfo(it)
                 }
             }
