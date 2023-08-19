@@ -17,4 +17,10 @@
     <string name="partners">Partners</string>
     <string name="organizers">Organizers</string>
     <string name="about_me">About Me</string>
+    <string name="gallery">Gallery</string>
+    <string name="details">Details</string>
+    <string name="agenda">Agenda</string>
+    <string name="speakers">Speakers</string>
+    <string name="when">When</string>
+    <string name="where">Where</string>
 </resources>

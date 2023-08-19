@@ -45,7 +45,6 @@
                         android:textSize="20sp"
                         android:textColor="@color/light_grey"
                         android:fontFamily="@font/gotham_rounded_bold"
-
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/back_icon"
