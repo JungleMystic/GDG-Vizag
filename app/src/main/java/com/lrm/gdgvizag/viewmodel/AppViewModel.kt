@@ -1,5 +1,6 @@
 package com.lrm.gdgvizag.viewmodel
 
+import android.app.Activity
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
@@ -18,9 +19,11 @@ import com.google.firebase.ktx.Firebase
 import com.lrm.gdgvizag.constants.TAG
 import com.lrm.gdgvizag.constants.USERS
 import com.lrm.gdgvizag.model.Event
+import com.lrm.gdgvizag.model.EventDetail
 import com.lrm.gdgvizag.model.Organizer
 import com.lrm.gdgvizag.model.Partner
 import com.lrm.gdgvizag.model.User
+import com.lrm.gdgvizag.utils.LoadingDialog
 import kotlinx.coroutines.launch
 
 class AppViewModel : ViewModel() {
@@ -44,6 +47,9 @@ class AppViewModel : ViewModel() {
 
     private val _organizersList = MutableLiveData<MutableList<Organizer>>(mutableListOf())
     val organizersList: LiveData<MutableList<Organizer>> get() = _organizersList
+
+    private val _eventDetail = MutableLiveData<EventDetail>()
+    val eventDetail: LiveData<EventDetail> get() = _eventDetail
 
     private fun setOnlineStatus(status: Boolean) {
         _onlineStatus.value = status
@@ -160,6 +166,24 @@ class AppViewModel : ViewModel() {
                     }
                     Log.i(TAG, "getOrganizers: Organizers List Data -> ${_organizersList.value} ")
                     _organizersList.postValue(_organizersList.value)
+                }
+        }
+    }
+
+    fun getEventDetailedData(eventId: String, activity: Activity) {
+        val loadingDialog = LoadingDialog(activity)
+        loadingDialog.startLoading()
+        viewModelScope.launch {
+            db.collection("event_detail").document(eventId).get()
+                .addOnSuccessListener {result->
+                    if (result.exists()) {
+                        loadingDialog.dismissDialog()
+                        Log.i(TAG, "getEventDetailedData: result data -> ${result.data}")
+                        val eventDetail = result.toObject(EventDetail::class.java)
+                        Log.i(TAG, "getEventDetailedData: $eventDetail")
+                        _eventDetail.value = eventDetail!!
+                        Log.i(TAG, "getEventDetailedData: _eventDetail.value -> ${_eventDetail.value}")
+                    }
                 }
         }
     }

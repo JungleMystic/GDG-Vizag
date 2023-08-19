@@ -56,10 +56,39 @@
             app:exitAnim="@anim/exit_anim"
             app:popEnterAnim="@anim/pop_enter_anim"
             app:popExitAnim="@anim/pop_exit_anim"/>
+        <action
+            android:id="@+id/action_homeFragment_to_eventDetailFragment"
+            app:destination="@id/eventDetailFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/pop_enter_anim"
+            app:popExitAnim="@anim/pop_exit_anim"/>
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.lrm.gdgvizag.fragments.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/pop_enter_anim"
+            app:popExitAnim="@anim/pop_exit_anim"/>
+    </fragment>
+    <fragment
+        android:id="@+id/eventDetailFragment"
+        android:name="com.lrm.gdgvizag.fragments.EventDetailFragment"
+        android:label="EventDetailFragment"
+        tools:layout="@layout/fragment_event_detail">
+        <argument
+            android:name="eventId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.lrm.gdgvizag.fragments.EditProfileFragment"
+        android:label="EditProfileFragment"
+        tools:layout="@layout/fragment_edit_profile"/>
 </navigation>

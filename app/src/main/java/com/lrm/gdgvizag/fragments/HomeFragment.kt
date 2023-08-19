@@ -71,7 +71,10 @@ class HomeFragment : Fragment() {
             if (list.isNotEmpty()) {
                 binding.pastRv.visibility = View.VISIBLE
                 binding.noPastEvents.visibility = View.INVISIBLE
-                binding.pastRv.adapter = PastEventAdapter(requireContext(), list)
+                binding.pastRv.adapter = PastEventAdapter(requireContext(), list) {
+                    val action = HomeFragmentDirections.actionHomeFragmentToEventDetailFragment(it.eventId)
+                    this.findNavController().navigate(action)
+                }
             } else {
                 binding.pastRv.visibility = View.INVISIBLE
                 binding.noPastEvents.visibility = View.VISIBLE

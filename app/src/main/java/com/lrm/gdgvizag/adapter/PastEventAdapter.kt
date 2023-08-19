@@ -11,7 +11,8 @@ import com.lrm.gdgvizag.model.Event
 
 class PastEventAdapter(
     private val context: Context,
-    private val pastEventList: List<Event>
+    private val pastEventList: List<Event>,
+    private val onItemClicked: (Event) -> Unit
 ): RecyclerView.Adapter<PastEventAdapter.UpcomingViewHolder>() {
 
     inner class UpcomingViewHolder(
@@ -38,5 +39,6 @@ class PastEventAdapter(
     override fun onBindViewHolder(holder: UpcomingViewHolder, position: Int) {
         val event = pastEventList[position]
         holder.bind(event)
+        holder.itemView.setOnClickListener { onItemClicked(event) }
     }
 }
