@@ -1,5 +1,7 @@
 package com.lrm.gdgvizag.fragments.eventDetailFragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -36,14 +38,22 @@ class DetailsFragment : Fragment() {
                 bind(event)
             }
         }
-
     }
 
     private fun bind(event: EventDetail) {
         Glide.with(requireContext()).load(event.eventLogo).placeholder(R.drawable.loading_icon_anim).into(binding.eventImage)
         binding.eventName.text = event.eventName
-        binding.eventDate.text = event.eventWhen.replace("/n", "\n")
+        binding.eventType.text = event.eventType
+        binding.eventDate.text = event.eventDate
+        binding.eventWhen.text = event.eventWhen.replace("/n", "\n")
         binding.eventLocation.text = event.eventWhere.replace("/n", "\n")
+        binding.aboutEvent.text = event.aboutEvent.replace("/n", "\n")
+        binding.mapIcon.setOnClickListener {
+            if (event.eventLocation != "") {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(event.eventLocation))
+                startActivity(intent)
+            }
+        }
     }
 
     override fun onDestroyView() {

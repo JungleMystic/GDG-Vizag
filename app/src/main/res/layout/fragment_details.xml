@@ -8,6 +8,17 @@
     android:layout_height="match_parent"
     tools:context=".fragments.eventDetailFragments.DetailsFragment">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="20dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/event_image"
         android:layout_width="100dp"
@@ -24,7 +35,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/event_image"
         app:layout_constraintTop_toTopOf="@id/event_image"
-        app:layout_constraintBottom_toBottomOf="@id/event_image"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="20dp"
@@ -34,26 +45,52 @@
         android:textSize="20sp"/>
 
     <TextView
+        android:id="@+id/event_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/event_name"
+        app:layout_constraintStart_toStartOf="@id/event_name"
+        android:layout_marginTop="10dp"
+        tools:text="Conference"
+        android:fontFamily="@font/quicksand_regular"
+        android:textColor="@color/black"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/event_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/event_type"
+        app:layout_constraintStart_toStartOf="@id/event_name"
+        android:layout_marginTop="10dp"
+        tools:text="05-08-2023"
+        android:fontFamily="@font/quicksand_regular"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="16sp"/>
+
+    <TextView
         android:id="@+id/when_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/event_image"
         app:layout_constraintTop_toBottomOf="@id/event_image"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="5dp"
         android:text="@string/when"
         android:fontFamily="@font/gotham_rounded_bold"
         android:textColor="@color/black"
         android:textSize="18sp"/>
 
     <TextView
-        android:id="@+id/event_date"
+        android:id="@+id/event_when"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/when_title"
         app:layout_constraintTop_toBottomOf="@id/when_title"
         android:layout_marginTop="10dp"
-        android:text="@string/when"
+        tools:text="Saturday, Aug 5 \n 11:30 AM - 6:00 PM (IST)"
+        android:lineSpacingExtra="10dp"
         android:fontFamily="@font/quicksand_regular"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -63,8 +100,8 @@
         android:id="@+id/where_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/event_date"
-        app:layout_constraintTop_toBottomOf="@id/event_date"
+        app:layout_constraintStart_toStartOf="@id/event_when"
+        app:layout_constraintTop_toBottomOf="@id/event_when"
         android:layout_marginTop="30dp"
         android:text="@string/where"
         android:fontFamily="@font/gotham_rounded_bold"
@@ -73,18 +110,61 @@
 
     <TextView
         android:id="@+id/event_location"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:minHeight="60dp"
         app:layout_constraintStart_toStartOf="@id/where_title"
+        app:layout_constraintEnd_toStartOf="@id/map_icon"
         app:layout_constraintTop_toBottomOf="@id/where_title"
+        android:layout_marginEnd="30dp"
         android:layout_marginTop="10dp"
-        android:text="@string/when"
+        tools:text="Dr YVS Murty Auditorium \n AU North Campus \n Visakhapatnam, 530003"
+        android:lineSpacingExtra="10dp"
         android:fontFamily="@font/quicksand_regular"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="16sp"/>
 
+    <ImageView
+        android:id="@+id/map_icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/map_icon"
+        app:layout_constraintTop_toTopOf="@id/event_location"
+        app:layout_constraintBottom_toBottomOf="@id/event_location"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="70dp"
+        android:contentDescription="@null"/>
 
+    <TextView
+        android:id="@+id/about_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/event_when"
+        app:layout_constraintTop_toBottomOf="@id/event_location"
+        android:layout_marginTop="30dp"
+        android:text="@string/about"
+        android:fontFamily="@font/gotham_rounded_bold"
+        android:textColor="@color/black"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/about_event"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/about_title"
+        app:layout_constraintEnd_toEndOf="@id/map_icon"
+        app:layout_constraintTop_toBottomOf="@id/about_title"
+        android:layout_marginTop="15dp"
+        android:lineSpacingExtra="5dp"
+        android:fontFamily="@font/quicksand_regular"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="16sp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
