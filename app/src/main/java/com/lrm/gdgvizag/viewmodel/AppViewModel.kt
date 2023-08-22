@@ -206,7 +206,8 @@ class AppViewModel : ViewModel() {
                             "",
                             userUid,
                             "",
-                            ""
+                            "",
+                            "false"
                         )
 
                         db.collection(USERS).document(account.email!!).set(user)

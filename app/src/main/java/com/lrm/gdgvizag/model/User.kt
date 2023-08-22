@@ -6,5 +6,6 @@ data class User(
     val userPhoneNum: String = "",
     val userUid: String = "",
     val userGender: String = "",
-    val userPic: String= ""
+    val userPic: String= "",
+    val updateStatus: String = ""
 )

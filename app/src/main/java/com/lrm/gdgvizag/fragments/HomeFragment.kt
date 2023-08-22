@@ -21,6 +21,7 @@ import com.lrm.gdgvizag.utils.AboutGDGDialog
 import com.lrm.gdgvizag.utils.OrganizerInfoDialog
 import com.lrm.gdgvizag.utils.PartnerInfoDialog
 import com.lrm.gdgvizag.viewmodel.AppViewModel
+import com.lrm.gdgvizag.viewmodel.ProfileViewModel
 
 class HomeFragment : Fragment() {
 
@@ -28,6 +29,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val appViewModel: AppViewModel by activityViewModels()
+    private val profileViewModel: ProfileViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,6 +47,7 @@ class HomeFragment : Fragment() {
         appViewModel.getEventsData()
         appViewModel.getPartnersData()
         appViewModel.getOrganizersData()
+        profileViewModel.getUserProfile()
 
         appViewModel.imagesList.observe(viewLifecycleOwner) {list ->
             //Log.i(TAG, "Home Fragment imagesList-> $list")

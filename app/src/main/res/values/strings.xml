@@ -24,4 +24,15 @@
     <string name="when">When</string>
     <string name="where">Where</string>
     <string name="about">About</string>
+    <string name="your_profile">Your Profile</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="your_tickets">Your Tickets</string>
+    <string name="your_events">Your Events</string>
+    <string name="about_us">About Us</string>
+    <string name="our_partners">Our Partners</string>
+    <string name="our_organizers">Our Organizers</string>
+    <string name="about_app">About App</string>
+    <string name="app_version">v1.0.0</string>
+    <string name="app_version_head">App Version</string>
+    <string name="log_out">Log Out</string>
 </resources>
