@@ -32,7 +32,7 @@ class ProfileViewModel: ViewModel() {
     }
 
 
-    private fun setUserProfile(user: User?) {
+    fun setUserProfile(user: User?) {
         Log.i(TAG, "setUserProfile: $user")
         _userProfile.value = user
     }

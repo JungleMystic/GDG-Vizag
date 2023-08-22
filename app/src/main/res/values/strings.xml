@@ -35,4 +35,7 @@
     <string name="app_version">v1.0.0</string>
     <string name="app_version_head">App Version</string>
     <string name="log_out">Log Out</string>
+    <string name="log_out_message">Are you sure you want to Log Out…?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
