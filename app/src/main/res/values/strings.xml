@@ -31,11 +31,20 @@
     <string name="about_us">About Us</string>
     <string name="our_partners">Our Partners</string>
     <string name="our_organizers">Our Organizers</string>
+
     <string name="about_app">About App</string>
     <string name="app_version">v1.0.0</string>
     <string name="app_version_head">App Version</string>
+
     <string name="log_out">Log Out</string>
     <string name="log_out_message">Are you sure you want to Log Out…?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+
+    <string name="dev_name">Rammohan Locharla</string>
+    <string name="dev_about">CA Aspirant by academics &amp; Android Kotlin Developer by passion. \n \n Pet Lover, Music Lover, Foodie, sometimes cook.</string>
+    <string name="code_name">code name</string>
+    <string name="dev_code_name">Jungle Mystic</string>
+    <string name="developer_info">Developer Info</string>
+
 </resources>

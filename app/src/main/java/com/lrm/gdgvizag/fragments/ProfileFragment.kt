@@ -1,8 +1,10 @@
 package com.lrm.gdgvizag.fragments
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,11 +14,13 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.lrm.gdgvizag.R
 import com.lrm.gdgvizag.constants.TAG
 import com.lrm.gdgvizag.databinding.FragmentProfileBinding
 import com.lrm.gdgvizag.viewmodel.ProfileViewModel
+import de.hdodenhof.circleimageview.CircleImageView
 
 class ProfileFragment : Fragment() {
 
@@ -53,6 +57,39 @@ class ProfileFragment : Fragment() {
             val action = ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment()
             this.findNavController().navigate(action)
         }
+
+        binding.appVersionCard.setOnLongClickListener {
+            showDeveloperInfoDialog()
+            true
+        }
+    }
+
+    private fun showDeveloperInfoDialog() {
+        val dialogView = requireActivity().layoutInflater.inflate(R.layout.custom_developer_info, null)
+        val imageLink = "https://firebasestorage.googleapis.com/v0/b/gdg-vizag-f9bf0.appspot.com/o/gdg_vizag%2Fdeveloper%2FRammohan_L_pic.png?alt=media&token=6e55ba28-e0ca-45c6-b50b-be1955da2566"
+        val devImage = dialogView.findViewById<CircleImageView>(R.id.dev_image)
+        Glide.with(requireContext()).load(imageLink).placeholder(R.drawable.loading_icon_anim).into(devImage)
+
+        val devGithubLink = dialogView.findViewById<CircleImageView>(R.id.dev_github_link)
+        val devYoutubeLink = dialogView.findViewById<CircleImageView>(R.id.dev_youtube_link)
+
+        devGithubLink.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/JungleMystic"))
+            startActivity(intent)
+        }
+
+        devYoutubeLink.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/@junglemystic"))
+            startActivity(intent)
+        }
+
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setView(dialogView)
+        builder.setCancelable(true)
+
+        val logoutDialog = builder.create()
+        logoutDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        logoutDialog.show()
     }
 
     private fun showLogOutDialog() {
