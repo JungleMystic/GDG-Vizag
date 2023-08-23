@@ -15,7 +15,7 @@ plugins {
 
 android {
     namespace = "com.lrm.gdgvizag"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.lrm.gdgvizag"
@@ -56,8 +56,8 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     //Navigation Component
-    implementation ("androidx.navigation:navigation-fragment-ktx:2.6.0")
-    implementation ("androidx.navigation:navigation-ui-ktx:2.6.0")
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.0")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.7.0")
 
     // ViewModel
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")

@@ -20,7 +20,6 @@ class ProfileViewModel: ViewModel() {
     private val _userProfile = MutableLiveData<User?>()
     val userProfile: LiveData<User?> get() = _userProfile
 
-
     fun getUserProfile() {
         val userEmail = auth.currentUser?.email!!
         val userRef = db.collection(USERS).document(userEmail)

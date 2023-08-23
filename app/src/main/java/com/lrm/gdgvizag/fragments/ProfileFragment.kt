@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -19,6 +20,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.lrm.gdgvizag.R
 import com.lrm.gdgvizag.constants.TAG
 import com.lrm.gdgvizag.databinding.FragmentProfileBinding
+import com.lrm.gdgvizag.model.AboutGDG
+import com.lrm.gdgvizag.utils.AboutGDGDialog
 import com.lrm.gdgvizag.viewmodel.ProfileViewModel
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -56,6 +59,25 @@ class ProfileFragment : Fragment() {
         binding.editProfileCard.setOnClickListener {
             val action = ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment()
             this.findNavController().navigate(action)
+        }
+
+        binding.organizersCard.setOnClickListener {
+            val modalBottomSheet = ProfileBottomSheetFragment("organizers")
+            modalBottomSheet.show(requireActivity().supportFragmentManager, ProfileBottomSheetFragment.TAG)
+        }
+
+        binding.partnersCard.setOnClickListener {
+            val modalBottomSheet = ProfileBottomSheetFragment("partners")
+            modalBottomSheet.show(requireActivity().supportFragmentManager, ProfileBottomSheetFragment.TAG)
+        }
+
+        binding.gdgVizagCard.setOnClickListener {
+            val infoDialog = AboutGDGDialog(requireActivity(), requireContext())
+            infoDialog.showInfo(AboutGDG())
+        }
+
+        binding.appVersionCard.setOnClickListener {
+            Toast.makeText(requireContext(), "Long press on App version to get Developer Info...", Toast.LENGTH_SHORT).show()
         }
 
         binding.appVersionCard.setOnLongClickListener {
