@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.google.android.material.carousel.CarouselLayoutManager
+import com.lrm.gdgvizag.R
 import com.lrm.gdgvizag.adapter.MemoriesAdapter
 import com.lrm.gdgvizag.adapter.OrganizersAdapter
 import com.lrm.gdgvizag.adapter.PartnersAdapter
@@ -48,6 +50,20 @@ class HomeFragment : Fragment() {
         appViewModel.getPartnersData()
         appViewModel.getOrganizersData()
         profileViewModel.getUserProfile()
+
+        profileViewModel.userProfile.observe(viewLifecycleOwner) {user ->
+            if (user != null) {
+                if (user.userPic == "") {
+                    binding.profileIcon.setImageResource(R.drawable.profile_user_icon)
+                } else {
+                    Glide.with(this@HomeFragment)
+                        .load(user.userPic)
+                        .placeholder(R.drawable.profile_user_icon)
+                        .into(binding.profileIcon)
+                }
+            }
+        }
+
 
         appViewModel.imagesList.observe(viewLifecycleOwner) {list ->
             //Log.i(TAG, "Home Fragment imagesList-> $list")

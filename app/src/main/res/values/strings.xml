@@ -50,12 +50,14 @@
     <string name="your_mail">Your Mail</string>
     <string name="phone_number">Phone Number</string>
     <string name="country_code">+91</string>
-    <string name="gender">Gender</string>
+    <string name="gender">Preferred pronoun is</string>
+    <string name="update">Update</string>
 
     <string-array name="gender_array">
-        <item>Male</item>
-        <item>Female</item>
-        <item>Others</item>
+        <item>he/him</item>
+        <item>she/her</item>
+        <item>they/them</item>
+        <item>decline to specify</item>
     </string-array>
 
 </resources>

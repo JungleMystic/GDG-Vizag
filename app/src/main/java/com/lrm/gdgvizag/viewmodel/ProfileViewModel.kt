@@ -11,6 +11,7 @@ import com.google.firebase.ktx.Firebase
 import com.lrm.gdgvizag.constants.TAG
 import com.lrm.gdgvizag.constants.USERS
 import com.lrm.gdgvizag.model.User
+import java.util.regex.Pattern
 
 class ProfileViewModel: ViewModel() {
 
@@ -36,4 +37,12 @@ class ProfileViewModel: ViewModel() {
         _userProfile.value = user
     }
 
+    fun checkDataToUpdate(name: String, mail: String,
+        phoneNum: String, gender: String): Boolean {
+
+        val mobileNumPattern = Pattern.compile("[6-9][0-9]{9}")
+
+        return name.isNotEmpty() && mail.isNotEmpty() && phoneNum.isNotEmpty() &&
+                mobileNumPattern.matcher(phoneNum).matches() && gender.isNotEmpty()
+    }
 }

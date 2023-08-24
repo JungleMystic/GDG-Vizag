@@ -45,10 +45,20 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.backIcon.setOnClickListener { this.findNavController().navigateUp() }
+
         profileViewModel.userProfile.observe(viewLifecycleOwner) {user ->
             if (user != null) {
                 binding.profileName.text = user.userName
                 binding.profileMail.text = user.userMail
+                if (user.userPic == "") {
+                    binding.profilePic.setImageResource(R.drawable.profile_user_icon)
+                } else {
+                    Glide.with(this@ProfileFragment)
+                        .load(user.userPic)
+                        .placeholder(R.drawable.profile_user_icon)
+                        .into(binding.profilePic)
+                }
             }
         }
 

@@ -92,8 +92,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/profile_image"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginTop="30dp"
             app:boxStrokeColor="@color/gl_blue"
             app:boxStrokeWidth="1dp"
@@ -116,8 +116,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/profile_name_til"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginTop="10dp"
             app:boxStrokeColor="@color/gl_blue"
             app:boxStrokeWidth="1dp"
@@ -144,8 +144,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/profile_mail_til"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginTop="10dp"
             app:boxStrokeColor="@color/gl_blue"
             app:boxStrokeWidth="1dp"
@@ -172,14 +172,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/mobile_number_til"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginTop="10dp"
             app:boxStrokeColor="@color/gl_blue"
             app:boxStrokeWidth="1dp"
             android:hint="@string/gender"
             app:hintTextColor="@color/black"
-            android:textColorHint="@color/black">
+            android:textColorHint="@color/black"
+            app:boxBackgroundColor="@color/white">
 
             <AutoCompleteTextView
                 android:id="@+id/gender_actv"
@@ -191,6 +192,18 @@
                 android:importantForAccessibility="no"/>
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/update_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/gender_til"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:backgroundTint="@color/gl_blue"
+            android:text="@string/update"
+            android:textColor="@color/white"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
