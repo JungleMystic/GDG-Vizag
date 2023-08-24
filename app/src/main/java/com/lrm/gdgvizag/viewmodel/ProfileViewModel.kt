@@ -1,5 +1,7 @@
 package com.lrm.gdgvizag.viewmodel
 
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -24,18 +26,20 @@ class ProfileViewModel: ViewModel() {
     val userProfile: LiveData<User?> get() = _userProfile
 
     fun getUserProfile() {
-        Log.i(TAG, "getUserProfile is called")
-        Log.i(TAG, "getUserProfile _userProfile -> ${userProfile.value}")
+        Handler(Looper.myLooper()!!).postDelayed({
+            Log.i(TAG, "getUserProfile is called")
+            Log.i(TAG, "getUserProfile _userProfile -> ${userProfile.value}")
 
-        val userEmail = auth.currentUser?.email!!
-        val userRef = db.collection(USERS).document(userEmail)
-        viewModelScope.launch {
-            userRef.get().addOnSuccessListener { documentSnapshot ->
-                val user = documentSnapshot.toObject(User::class.java)
-                setUserProfile(user!!)
+            val userEmail = auth.currentUser?.email!!
+            val userRef = db.collection(USERS).document(userEmail)
+            viewModelScope.launch {
+                userRef.get().addOnSuccessListener { documentSnapshot ->
+                    val user = documentSnapshot.toObject(User::class.java)
+                    setUserProfile(user!!)
+                }
+                    .addOnFailureListener { Log.i(TAG, "getUserProfile: User not found") }
             }
-                .addOnFailureListener { Log.i(TAG, "getUserProfile: User not found") }
-        }
+        }, 2000)
     }
 
 
