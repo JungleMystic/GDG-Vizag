@@ -22,6 +22,8 @@ class ProfileViewModel: ViewModel() {
     val userProfile: LiveData<User?> get() = _userProfile
 
     fun getUserProfile() {
+        Log.i(TAG, "getUserProfile is called")
+        Log.i(TAG, "getUserProfile _userProfile -> ${userProfile.value}")
         val userEmail = auth.currentUser?.email!!
         val userRef = db.collection(USERS).document(userEmail)
         userRef.get().addOnSuccessListener { documentSnapshot ->
@@ -35,6 +37,7 @@ class ProfileViewModel: ViewModel() {
     fun setUserProfile(user: User?) {
         Log.i(TAG, "setUserProfile: $user")
         _userProfile.value = user
+        _userProfile.postValue(_userProfile.value)
     }
 
     fun checkDataToUpdate(name: String, mail: String,

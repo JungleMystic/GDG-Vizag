@@ -33,7 +33,7 @@ class AppViewModel : ViewModel() {
     private val _onlineStatus = MutableLiveData(false)
     val onlineStatus: LiveData<Boolean> get() = _onlineStatus
 
-    private val _imagesList = MutableLiveData(mutableListOf(""))
+    private val _imagesList = MutableLiveData<MutableList<String>>(mutableListOf())
     val imagesList: LiveData<MutableList<String>> get() = _imagesList
 
     private val _upcomingEventsList = MutableLiveData<MutableList<Event>>(mutableListOf())
@@ -94,6 +94,7 @@ class AppViewModel : ViewModel() {
     }
 
     fun getImages() {
+        Log.i(TAG, "getImages is called")
         viewModelScope.launch {
             db.collection("gdg_memories").document("images").get()
                 .addOnSuccessListener { document ->
@@ -107,6 +108,7 @@ class AppViewModel : ViewModel() {
     }
 
     fun getEventsData() {
+        Log.i(TAG, "getEventsData is called")
         viewModelScope.launch {
             db.collection("events").get()
                 .addOnSuccessListener { documents ->
@@ -115,24 +117,25 @@ class AppViewModel : ViewModel() {
                     _pastEventsList.value?.clear()
 
                     for (document in documents) {
-                        Log.i(TAG, "getEvents: Events Data -> ${document.data}")
+                        //Log.i(TAG, "getEvents: Events Data -> ${document.data}")
                         val event = document.toObject(Event::class.java)
-                        Log.i(TAG, "getEvents: Events Data event-> $event ")
+                        //Log.i(TAG, "getEvents: Events Data event-> $event ")
                         if (event.eventStatus == "upcoming") {
                             _upcomingEventsList.value?.add(event)
                         } else if (event.eventStatus == "past") {
                             _pastEventsList.value?.add(event)
                         }
                     }
-                    Log.i(TAG, "getEvents: Upcoming Events Data -> ${_upcomingEventsList.value} ")
+                    //Log.i(TAG, "getEvents: Upcoming Events Data -> ${_upcomingEventsList.value} ")
                     _upcomingEventsList.postValue(_upcomingEventsList.value)
-                    Log.i(TAG, "getEvents: Past Events Data -> ${_pastEventsList.value} ")
+                    //Log.i(TAG, "getEvents: Past Events Data -> ${_pastEventsList.value} ")
                     _pastEventsList.postValue(_pastEventsList.value)
                 }
         }
     }
 
     fun getPartnersData() {
+        Log.i(TAG, "getPartnersData is called")
         viewModelScope.launch {
             db.collection("partners").get()
                 .addOnSuccessListener { documents ->
@@ -140,18 +143,19 @@ class AppViewModel : ViewModel() {
                     _partnersList.value?.clear()
 
                     for (document in documents) {
-                        Log.i(TAG, "getPartners: Partners Data -> ${document.data}")
+                        //Log.i(TAG, "getPartners: Partners Data -> ${document.data}")
                         val partner = document.toObject(Partner::class.java)
-                        Log.i(TAG, "getPartner: Single Partner-> $partner")
+                        //Log.i(TAG, "getPartner: Single Partner-> $partner")
                         _partnersList.value?.add(partner)
                     }
-                    Log.i(TAG, "getPartner: Partner List Data -> ${_partnersList.value} ")
+                    //Log.i(TAG, "getPartner: Partner List Data -> ${_partnersList.value} ")
                     _partnersList.postValue(_partnersList.value)
                 }
         }
     }
 
     fun getOrganizersData() {
+        Log.i(TAG, "getOrganizersData is called")
         viewModelScope.launch {
             db.collection("organizers").get()
                 .addOnSuccessListener { documents ->
@@ -159,12 +163,12 @@ class AppViewModel : ViewModel() {
                     _organizersList.value?.clear()
 
                     for (document in documents) {
-                        Log.i(TAG, "getOrganizers: Organizers Data -> ${document.data}")
+                        //Log.i(TAG, "getOrganizers: Organizers Data -> ${document.data}")
                         val organizer = document.toObject(Organizer::class.java)
-                        Log.i(TAG, "getOrganizer: Single Organizer-> $organizer")
+                        //Log.i(TAG, "getOrganizer: Single Organizer-> $organizer")
                         _organizersList.value?.add(organizer)
                     }
-                    Log.i(TAG, "getOrganizers: Organizers List Data -> ${_organizersList.value} ")
+                    //Log.i(TAG, "getOrganizers: Organizers List Data -> ${_organizersList.value} ")
                     _organizersList.postValue(_organizersList.value)
                 }
         }
@@ -178,11 +182,11 @@ class AppViewModel : ViewModel() {
                 .addOnSuccessListener {result->
                     if (result.exists()) {
                         loadingDialog.dismissDialog()
-                        Log.i(TAG, "getEventDetailedData: result data -> ${result.data}")
+                        //Log.i(TAG, "getEventDetailedData: result data -> ${result.data}")
                         val eventDetail = result.toObject(EventDetail::class.java)
-                        Log.i(TAG, "getEventDetailedData: $eventDetail")
+                        //Log.i(TAG, "getEventDetailedData: $eventDetail")
                         _eventDetail.value = eventDetail!!
-                        Log.i(TAG, "getEventDetailedData: _eventDetail.value -> ${_eventDetail.value}")
+                        //Log.i(TAG, "getEventDetailedData: _eventDetail.value -> ${_eventDetail.value}")
                     }
                 }
         }

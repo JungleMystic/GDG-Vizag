@@ -45,13 +45,10 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        appViewModel.getImages()
-        appViewModel.getEventsData()
-        appViewModel.getPartnersData()
-        appViewModel.getOrganizersData()
         profileViewModel.getUserProfile()
 
         profileViewModel.userProfile.observe(viewLifecycleOwner) {user ->
+            Log.i(TAG, "Home Fragment onViewCreated: userProfile $user")
             if (user != null) {
                 if (user.userPic == "") {
                     binding.profileIcon.setImageResource(R.drawable.profile_user_icon)
@@ -67,26 +64,31 @@ class HomeFragment : Fragment() {
 
         appViewModel.imagesList.observe(viewLifecycleOwner) {list ->
             //Log.i(TAG, "Home Fragment imagesList-> $list")
-            binding.imageRv.apply {
-                layoutManager = CarouselLayoutManager()
-                adapter = MemoriesAdapter(requireContext(), list)
+            if (list.isNotEmpty()) {
+                binding.imageRv.apply {
+                    layoutManager = CarouselLayoutManager()
+                    adapter = MemoriesAdapter(requireContext(), list)
+                }
+            } else {
+                appViewModel.getImages()
             }
         }
 
         appViewModel.upcomingEventsList.observe(viewLifecycleOwner) {list ->
-            Log.i(TAG, "Home Fragment upcomingEventList-> $list")
+            //Log.i(TAG, "Home Fragment upcomingEventList-> $list")
             if (list.isNotEmpty()) {
                 binding.upcomingRv.visibility = View.VISIBLE
                 binding.noUpcomingEvents.visibility = View.INVISIBLE
                 binding.upcomingRv.adapter = UpcomingEventAdapter(requireContext(), list)
             } else {
+                appViewModel.getEventsData()
                 binding.upcomingRv.visibility = View.INVISIBLE
                 binding.noUpcomingEvents.visibility = View.VISIBLE
             }
         }
 
         appViewModel.pastEventsList.observe(viewLifecycleOwner) {list ->
-            Log.i(TAG, "Home Fragment pastEventList-> $list")
+            //Log.i(TAG, "Home Fragment pastEventList-> $list")
             if (list.isNotEmpty()) {
                 binding.pastRv.visibility = View.VISIBLE
                 binding.noPastEvents.visibility = View.INVISIBLE
@@ -95,6 +97,7 @@ class HomeFragment : Fragment() {
                     this.findNavController().navigate(action)
                 }
             } else {
+                appViewModel.getEventsData()
                 binding.pastRv.visibility = View.INVISIBLE
                 binding.noPastEvents.visibility = View.VISIBLE
             }
@@ -106,7 +109,7 @@ class HomeFragment : Fragment() {
                     val infoDialog = PartnerInfoDialog(requireActivity(), requireContext())
                     infoDialog.showInfo(it)
                 }
-            }
+            } else appViewModel.getPartnersData()
         }
 
         appViewModel.organizersList.observe(viewLifecycleOwner) { list ->
@@ -115,7 +118,7 @@ class HomeFragment : Fragment() {
                     val infoDialog = OrganizerInfoDialog(requireActivity(), requireContext())
                     infoDialog.showInfo(it)
                 }
-            }
+            } else appViewModel.getOrganizersData()
         }
 
         binding.fragmentLabel.setOnClickListener {
