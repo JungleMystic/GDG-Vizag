@@ -12,7 +12,8 @@ import com.lrm.gdgvizag.model.Event
 
 class UpcomingEventAdapter(
     private val context: Context,
-    private val upcomingEventList: List<Event>
+    private val upcomingEventList: List<Event>,
+    private val onItemClicked: (Event) -> Unit
 ): RecyclerView.Adapter<UpcomingEventAdapter.UpcomingViewHolder>() {
 
     inner class UpcomingViewHolder(
@@ -29,6 +30,8 @@ class UpcomingEventAdapter(
             } else {
                 binding.registerButton.visibility = View.INVISIBLE
             }
+
+            binding.registerButton.setOnClickListener{onItemClicked(event)}
         }
     }
 

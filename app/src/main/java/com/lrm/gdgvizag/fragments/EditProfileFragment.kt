@@ -142,7 +142,13 @@ class EditProfileFragment : Fragment(), EasyPermissions.PermissionCallbacks {
                         )
                     }
             } else if (filePath == Uri.EMPTY) {
-                profilePic = ""
+
+                profilePic = if (profileViewModel.userProfile.value?.userPic == "") {
+                    ""
+                } else {
+                    profileViewModel.userProfile.value?.userPic.toString()
+                }
+
                 uploadDataToFirestore(
                     profileName,
                     profileMail,

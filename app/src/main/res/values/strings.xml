@@ -52,6 +52,7 @@
     <string name="country_code">+91</string>
     <string name="gender">Preferred pronoun is</string>
     <string name="update">Update</string>
+    <string name="event_registration">Event Registration</string>
 
     <string-array name="gender_array">
         <item>he/him</item>

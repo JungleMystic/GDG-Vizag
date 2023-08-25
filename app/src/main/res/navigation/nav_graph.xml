@@ -63,6 +63,20 @@
             app:exitAnim="@anim/exit_anim"
             app:popEnterAnim="@anim/pop_enter_anim"
             app:popExitAnim="@anim/pop_exit_anim"/>
+        <action
+            android:id="@+id/action_homeFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/pop_enter_anim"
+            app:popExitAnim="@anim/pop_exit_anim"/>
+        <action
+            android:id="@+id/action_homeFragment_to_eventRegistrationFragment"
+            app:destination="@id/eventRegistrationFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/pop_enter_anim"
+            app:popExitAnim="@anim/pop_exit_anim"/>
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -100,4 +114,9 @@
         android:name="com.lrm.gdgvizag.fragments.EditProfileFragment"
         android:label="EditProfileFragment"
         tools:layout="@layout/fragment_edit_profile"/>
+    <fragment
+        android:id="@+id/eventRegistrationFragment"
+        android:name="com.lrm.gdgvizag.fragments.EventRegistrationFragment"
+        android:label="EventRegistrationFragment"
+        tools:layout="@layout/fragment_event_registration"/>
 </navigation>

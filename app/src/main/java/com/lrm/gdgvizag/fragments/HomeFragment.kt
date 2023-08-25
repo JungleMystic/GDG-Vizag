@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -45,6 +46,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            profileViewModel.getUserProfile()
+            appViewModel.getEventsData()
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
+
         profileViewModel.getUserProfile()
 
         profileViewModel.userProfile.observe(viewLifecycleOwner) {user ->
@@ -60,7 +67,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-
 
         appViewModel.imagesList.observe(viewLifecycleOwner) {list ->
             //Log.i(TAG, "Home Fragment imagesList-> $list")
@@ -79,7 +85,16 @@ class HomeFragment : Fragment() {
             if (list.isNotEmpty()) {
                 binding.upcomingRv.visibility = View.VISIBLE
                 binding.noUpcomingEvents.visibility = View.INVISIBLE
-                binding.upcomingRv.adapter = UpcomingEventAdapter(requireContext(), list)
+                binding.upcomingRv.adapter = UpcomingEventAdapter(requireContext(), list) {
+                    if (profileViewModel.userProfile.value?.updateStatus == "false") {
+                        Toast.makeText(requireContext(), "Please Update your profile...", Toast.LENGTH_SHORT).show()
+                        val action = HomeFragmentDirections.actionHomeFragmentToEditProfileFragment()
+                        this.findNavController().navigate(action)
+                    } else if (profileViewModel.userProfile.value?.updateStatus == "updated"){
+                        val action = HomeFragmentDirections.actionHomeFragmentToEventRegistrationFragment()
+                        this.findNavController().navigate(action)
+                    }
+                }
             } else {
                 appViewModel.getEventsData()
                 binding.upcomingRv.visibility = View.INVISIBLE
