@@ -320,7 +320,7 @@
                 android:layout_marginStart="2dp"/>
 
             <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/web"
+                android:id="@+id/tech_domain_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tech_domain_1"
@@ -333,7 +333,7 @@
                 app:layout_constraintStart_toStartOf="@id/tech_domains_head"/>
 
             <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/mobile"
+                android:id="@+id/tech_domain_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tech_domain_2"
@@ -342,10 +342,141 @@
                 android:paddingStart="10dp"
                 android:paddingEnd="1dp"
                 app:buttonTint="@color/gl_blue"
-                app:layout_constraintTop_toBottomOf="@id/web"
-                app:layout_constraintStart_toStartOf="@id/web"
+                app:layout_constraintTop_toBottomOf="@id/tech_domain_1"
+                app:layout_constraintStart_toStartOf="@id/tech_domain_1"
                 android:layout_marginTop="-15dp"/>
 
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/tech_domain_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tech_domain_3"
+                android:fontFamily="@font/quicksand_regular"
+                android:textStyle="bold"
+                android:paddingStart="10dp"
+                android:paddingEnd="1dp"
+                app:buttonTint="@color/gl_blue"
+                app:layout_constraintTop_toBottomOf="@id/tech_domain_2"
+                app:layout_constraintStart_toStartOf="@id/tech_domain_2"
+                android:layout_marginTop="-15dp"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/tech_domain_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tech_domain_4"
+                android:fontFamily="@font/quicksand_regular"
+                android:textStyle="bold"
+                android:paddingStart="10dp"
+                android:paddingEnd="1dp"
+                app:buttonTint="@color/gl_blue"
+                app:layout_constraintTop_toBottomOf="@id/tech_domain_3"
+                app:layout_constraintStart_toStartOf="@id/tech_domain_3"
+                android:layout_marginTop="-15dp"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/tech_domain_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tech_domain_5"
+                android:fontFamily="@font/quicksand_regular"
+                android:textStyle="bold"
+                android:paddingStart="10dp"
+                android:paddingEnd="1dp"
+                app:buttonTint="@color/gl_blue"
+                app:layout_constraintTop_toBottomOf="@id/tech_domain_4"
+                app:layout_constraintStart_toStartOf="@id/tech_domain_4"
+                android:layout_marginTop="-15dp"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/tech_domain_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tech_domain_6"
+                android:fontFamily="@font/quicksand_regular"
+                android:textStyle="bold"
+                android:paddingStart="10dp"
+                android:paddingEnd="1dp"
+                app:buttonTint="@color/gl_blue"
+                app:layout_constraintTop_toBottomOf="@id/tech_domain_5"
+                app:layout_constraintStart_toStartOf="@id/tech_domain_5"
+                android:layout_marginTop="-15dp"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/tech_domain_7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tech_domain_7"
+                android:fontFamily="@font/quicksand_regular"
+                android:textStyle="bold"
+                android:paddingStart="10dp"
+                android:paddingEnd="1dp"
+                app:buttonTint="@color/gl_blue"
+                app:layout_constraintTop_toBottomOf="@id/tech_domain_6"
+                app:layout_constraintStart_toStartOf="@id/tech_domain_6"
+                android:layout_marginTop="-15dp"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/why_this_event_til"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tech_domain_7"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                app:boxStrokeColor="@color/gl_blue"
+                app:boxStrokeWidth="1dp"
+                android:hint="@string/why_this_event_question"
+                app:hintTextColor="@color/black"
+                app:endIconMode="clear_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/why_this_event"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/quicksand_bold"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/github_link_til"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/why_this_event_til"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                app:boxStrokeColor="@color/gl_blue"
+                app:boxStrokeWidth="1dp"
+                android:hint="@string/github_link"
+                app:hintTextColor="@color/black"
+                app:endIconMode="clear_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/github_link"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/quicksand_bold"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/submit_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/github_link_til"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="60dp"
+                android:backgroundTint="@color/gl_blue"
+                android:text="@string/submit"
+                android:textColor="@color/white"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

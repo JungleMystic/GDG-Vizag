@@ -20,6 +20,7 @@ import com.lrm.gdgvizag.constants.TAG
 import com.lrm.gdgvizag.constants.USERS
 import com.lrm.gdgvizag.model.Event
 import com.lrm.gdgvizag.model.EventDetail
+import com.lrm.gdgvizag.model.EventRegistration
 import com.lrm.gdgvizag.model.Organizer
 import com.lrm.gdgvizag.model.Partner
 import com.lrm.gdgvizag.model.User
@@ -187,6 +188,17 @@ class AppViewModel : ViewModel() {
                         //Log.i(TAG, "getEventDetailedData: $eventDetail")
                         _eventDetail.value = eventDetail!!
                         //Log.i(TAG, "getEventDetailedData: _eventDetail.value -> ${_eventDetail.value}")
+                    }
+                }
+        }
+    }
+
+    fun getSubmittedApplications(mailId: String) {
+        viewModelScope.launch {
+            db.collection("eventRegistration").document(mailId).get()
+                .addOnSuccessListener {result ->
+                    if (result.exists()) {
+                        val application = result.toObject(EventRegistration::class.java)
                     }
                 }
         }

@@ -61,6 +61,14 @@
     <string name="tech_domains_head">Tech Domains Interested/Experiences in <font color='#f9154a'>*</font></string>
     <string name="tech_domain_1">Web (Frontend and/or Backend)</string>
     <string name="tech_domain_2">Mobile (Android, iOS, Flutter, React Native, etc.)</string>
+    <string name="tech_domain_3">Cloud</string>
+    <string name="tech_domain_4">AI/ML</string>
+    <string name="tech_domain_5">Web3/Blockchain</string>
+    <string name="tech_domain_6">VR/AR/XR</string>
+    <string name="tech_domain_7">Other</string>
+    <string name="why_this_event_question">Why should you be at %1$s ? <font color='#f9154a'>*</font></string>
+    <string name="github_link">Github Link</string>
+    <string name="submit">Submit</string>
 
     <string-array name="gender_array">
         <item>he/him</item>
