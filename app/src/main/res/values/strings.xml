@@ -56,6 +56,11 @@
 
     <string name="event_registration">Event Registration</string>
     <string name="application_form">Application Form</string>
+    <string name="career_status">Career Status <font color='#f9154a'>*</font></string>
+    <string name="org_university">Organisation/ University <font color='#f9154a'>*</font></string>
+    <string name="tech_domains_head">Tech Domains Interested/Experiences in <font color='#f9154a'>*</font></string>
+    <string name="tech_domain_1">Web (Frontend and/or Backend)</string>
+    <string name="tech_domain_2">Mobile (Android, iOS, Flutter, React Native, etc.)</string>
 
     <string-array name="gender_array">
         <item>he/him</item>
@@ -63,5 +68,14 @@
         <item>they/them</item>
         <item>decline to specify</item>
     </string-array>
+
+    <string-array name="cs_array">
+        <item>Employee</item>
+        <item>Student</item>
+        <item>Freelancer</item>
+        <item>Other</item>
+        <item>decline to specify</item>
+    </string-array>
+
 
 </resources>

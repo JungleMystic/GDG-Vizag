@@ -162,7 +162,7 @@
                 app:layout_constraintTop_toBottomOf="@id/form_title"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="40dp"/>
+                android:layout_marginTop="30dp"/>
 
             <TextView
                 android:id="@+id/profile_mail"
@@ -244,9 +244,7 @@
                 app:boxStrokeColor="@color/gl_blue"
                 app:boxStrokeWidth="1dp"
                 android:hint="@string/gender"
-                app:hintTextColor="@color/black"
-                android:textColorHint="@color/black"
-                app:boxBackgroundColor="@color/white">
+                app:hintTextColor="@color/black">
 
                 <AutoCompleteTextView
                     android:id="@+id/gender_actv"
@@ -258,6 +256,96 @@
                     android:importantForAccessibility="no"/>
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/cs_til"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/gender_til"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                app:boxStrokeColor="@color/gl_blue"
+                app:boxStrokeWidth="1dp"
+                android:hint="@string/career_status"
+                app:hintTextColor="@color/black">
+
+                <AutoCompleteTextView
+                    android:id="@+id/cs_actv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:inputType="none"
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/profile_org_til"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/cs_til"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                app:boxStrokeColor="@color/gl_blue"
+                app:boxStrokeWidth="1dp"
+                android:hint="@string/org_university"
+                app:hintTextColor="@color/black"
+                app:endIconMode="clear_text"
+                app:helperText="Write NA if not applicable">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/profile_org"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/quicksand_bold"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tech_domains_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tech_domains_head"
+                android:fontFamily="@font/quicksand_bold"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/profile_org_til"
+                app:layout_constraintStart_toStartOf="@id/profile_org_til"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="2dp"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/web"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tech_domain_1"
+                android:fontFamily="@font/quicksand_regular"
+                android:textStyle="bold"
+                android:paddingStart="10dp"
+                android:paddingEnd="1dp"
+                app:buttonTint="@color/gl_blue"
+                app:layout_constraintTop_toBottomOf="@id/tech_domains_head"
+                app:layout_constraintStart_toStartOf="@id/tech_domains_head"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/mobile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tech_domain_2"
+                android:fontFamily="@font/quicksand_regular"
+                android:textStyle="bold"
+                android:paddingStart="10dp"
+                android:paddingEnd="1dp"
+                app:buttonTint="@color/gl_blue"
+                app:layout_constraintTop_toBottomOf="@id/web"
+                app:layout_constraintStart_toStartOf="@id/web"
+                android:layout_marginTop="-15dp"/>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -67,6 +67,10 @@ class EventRegistrationFragment : Fragment() {
         val genders = resources.getStringArray(R.array.gender_array)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.drop_down_tv, genders)
         binding.genderActv.setAdapter(arrayAdapter)
+
+        val csArray = resources.getStringArray(R.array.cs_array)
+        val arrayAdapter2 = ArrayAdapter(requireContext(), R.layout.drop_down_tv, csArray)
+        binding.csActv.setAdapter(arrayAdapter2)
     }
 
     override fun onDestroyView() {

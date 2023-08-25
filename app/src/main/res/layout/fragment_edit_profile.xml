@@ -178,9 +178,7 @@
             app:boxStrokeColor="@color/gl_blue"
             app:boxStrokeWidth="1dp"
             android:hint="@string/gender"
-            app:hintTextColor="@color/black"
-            android:textColorHint="@color/black"
-            app:boxBackgroundColor="@color/white">
+            app:hintTextColor="@color/black">
 
             <AutoCompleteTextView
                 android:id="@+id/gender_actv"
