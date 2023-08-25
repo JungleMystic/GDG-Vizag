@@ -118,5 +118,9 @@
         android:id="@+id/eventRegistrationFragment"
         android:name="com.lrm.gdgvizag.fragments.EventRegistrationFragment"
         android:label="EventRegistrationFragment"
-        tools:layout="@layout/fragment_event_registration"/>
+        tools:layout="@layout/fragment_event_registration">
+        <argument
+            android:name="event"
+            app:argType="com.lrm.gdgvizag.model.Event" />
+    </fragment>
 </navigation>

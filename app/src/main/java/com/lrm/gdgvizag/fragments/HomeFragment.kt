@@ -91,7 +91,7 @@ class HomeFragment : Fragment() {
                         val action = HomeFragmentDirections.actionHomeFragmentToEditProfileFragment()
                         this.findNavController().navigate(action)
                     } else if (profileViewModel.userProfile.value?.updateStatus == "updated"){
-                        val action = HomeFragmentDirections.actionHomeFragmentToEventRegistrationFragment()
+                        val action = HomeFragmentDirections.actionHomeFragmentToEventRegistrationFragment(it)
                         this.findNavController().navigate(action)
                     }
                 }
