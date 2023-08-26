@@ -49,6 +49,8 @@ class EventRegistrationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.backIcon.setOnClickListener{ this.findNavController().navigateUp() }
+
         loadingDialog = LoadingDialog(requireActivity())
 
         event = eventRegArgs.event
@@ -141,7 +143,7 @@ class EventRegistrationFragment : Fragment() {
             val application = EventRegistration(applicationId, eventId, name, mail,
                 phoneNum, gender, careerStatus, orgUnivName,
                 techInterests, whyThisEvent, "",
-                "Submitted", "Pending")
+                "Submitted", "Pending", "false")
 
             Log.i(TAG, "submitDataToFirestore: $application")
             uploadDataToFirestore(application)
@@ -178,7 +180,7 @@ class EventRegistrationFragment : Fragment() {
         binding.profileMail.text = user.userMail
         binding.profileName.setText(user.userName, TextView.BufferType.SPANNABLE)
         binding.mobileNumber.setText(user.userPhoneNum, TextView.BufferType.SPANNABLE)
-        binding.genderActv.setText(user.userGender)
+        binding.genderActv.setText(user.userGender, TextView.BufferType.SPANNABLE)
         binding.whyThisEventTil.hint = getString(R.string.why_this_event_question, event.eventName)
     }
 

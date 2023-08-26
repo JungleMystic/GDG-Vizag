@@ -69,6 +69,10 @@
     <string name="why_this_event_question">Why should you be at %1$s ? <font color='#f9154a'>*</font></string>
     <string name="github_link">Github Link</string>
     <string name="submit">Submit</string>
+    <string name="application_status">Application Status:</string>
+    <string name="application_accepted">Application Accepted…?</string>
+    <string name="generate_ticket">Generate Ticket</string>
+    <string name="no_submitted_applications_found">No submitted applications found</string>
 
     <string-array name="gender_array">
         <item>he/him</item>

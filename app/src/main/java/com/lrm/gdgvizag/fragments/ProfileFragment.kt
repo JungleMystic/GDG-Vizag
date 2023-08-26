@@ -71,6 +71,11 @@ class ProfileFragment : Fragment() {
             this.findNavController().navigate(action)
         }
 
+        binding.yourEventsCard.setOnClickListener {
+            val action = ProfileFragmentDirections.actionProfileFragmentToSubmittedApplicationsFragment()
+            this.findNavController().navigate(action)
+        }
+
         binding.organizersCard.setOnClickListener {
             val modalBottomSheet = ProfileBottomSheetFragment("organizers")
             modalBottomSheet.show(requireActivity().supportFragmentManager, ProfileBottomSheetFragment.TAG)

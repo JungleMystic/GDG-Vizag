@@ -30,12 +30,16 @@ import kotlinx.coroutines.launch
 class AppViewModel : ViewModel() {
 
     private var db: FirebaseFirestore = Firebase.firestore
+    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     private val _onlineStatus = MutableLiveData(false)
     val onlineStatus: LiveData<Boolean> get() = _onlineStatus
 
     private val _imagesList = MutableLiveData<MutableList<String>>(mutableListOf())
     val imagesList: LiveData<MutableList<String>> get() = _imagesList
+
+    private val _eventsList = MutableLiveData<MutableList<Event>>(mutableListOf())
+    val eventsList: LiveData<MutableList<Event>> get() = _eventsList
 
     private val _upcomingEventsList = MutableLiveData<MutableList<Event>>(mutableListOf())
     val upcomingEventsList: LiveData<MutableList<Event>> get() = _upcomingEventsList
@@ -51,6 +55,9 @@ class AppViewModel : ViewModel() {
 
     private val _eventDetail = MutableLiveData<EventDetail>()
     val eventDetail: LiveData<EventDetail> get() = _eventDetail
+
+    private val _submittedApplicationList = MutableLiveData<MutableList<EventRegistration>>(mutableListOf())
+    val submittedApplicationList: LiveData<MutableList<EventRegistration>> get() = _submittedApplicationList
 
     private fun setOnlineStatus(status: Boolean) {
         _onlineStatus.value = status
@@ -114,12 +121,14 @@ class AppViewModel : ViewModel() {
             db.collection("events").get()
                 .addOnSuccessListener { documents ->
 
+                    _eventsList.value?.clear()
                     _upcomingEventsList.value?.clear()
                     _pastEventsList.value?.clear()
 
                     for (document in documents) {
                         //Log.i(TAG, "getEvents: Events Data -> ${document.data}")
                         val event = document.toObject(Event::class.java)
+                        _eventsList.value?.add(event)
                         //Log.i(TAG, "getEvents: Events Data event-> $event ")
                         if (event.eventStatus == "upcoming") {
                             _upcomingEventsList.value?.add(event)
@@ -127,6 +136,7 @@ class AppViewModel : ViewModel() {
                             _pastEventsList.value?.add(event)
                         }
                     }
+                    _eventsList.postValue(_eventsList.value)
                     //Log.i(TAG, "getEvents: Upcoming Events Data -> ${_upcomingEventsList.value} ")
                     _upcomingEventsList.postValue(_upcomingEventsList.value)
                     //Log.i(TAG, "getEvents: Past Events Data -> ${_pastEventsList.value} ")
@@ -195,11 +205,18 @@ class AppViewModel : ViewModel() {
 
     fun getSubmittedApplications(mailId: String) {
         viewModelScope.launch {
-            db.collection("eventRegistration").document(mailId).get()
-                .addOnSuccessListener {result ->
-                    if (result.exists()) {
-                        val application = result.toObject(EventRegistration::class.java)
+            db.collection("eventRegistration").get()
+                .addOnSuccessListener {documents ->
+                    _submittedApplicationList.value?.clear()
+
+                    for (document in documents) {
+                        val application = document.toObject(EventRegistration::class.java)
+                        if (application.mailId == auth.currentUser?.email) {
+                            _submittedApplicationList.value?.add(application)
+                        }
                     }
+                    _submittedApplicationList.postValue(_submittedApplicationList.value)
+                    Log.i(TAG, "getSubmittedApplications: ${_submittedApplicationList.value}")
                 }
         }
     }
