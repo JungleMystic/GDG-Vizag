@@ -14,5 +14,5 @@ data class EventRegistration(
     val githubLink: String = "",
     val applicationStatus: String = "",
     val acceptanceStatus: String = "",
-    val isTicketGenerated: String = ""
+    val ticketGenerated: String = ""
 )

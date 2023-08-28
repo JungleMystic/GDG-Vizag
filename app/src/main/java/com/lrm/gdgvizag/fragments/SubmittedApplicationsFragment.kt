@@ -1,6 +1,7 @@
 package com.lrm.gdgvizag.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.lrm.gdgvizag.adapter.SubmittedApplicationsAdapter
+import com.lrm.gdgvizag.constants.TAG
 import com.lrm.gdgvizag.databinding.FragmentSubmittedApplicationsBinding
 import com.lrm.gdgvizag.viewmodel.AppViewModel
 import com.lrm.gdgvizag.viewmodel.ProfileViewModel
@@ -35,18 +37,35 @@ class SubmittedApplicationsFragment : Fragment() {
 
         binding.backIcon.setOnClickListener { this.findNavController().navigateUp() }
 
-        appViewModel.getSubmittedApplications(profileViewModel.userProfile.value!!.userMail)
+        val userMail = profileViewModel.userProfile.value!!.userMail
+        appViewModel.getSubmittedApplications(userMail)
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            appViewModel.getSubmittedApplications(userMail)
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
 
         appViewModel.submittedApplicationList.observe(viewLifecycleOwner) {list ->
             if (list.isNotEmpty()) {
+                Log.i(TAG, "onViewCreated: Submitted Applications -> $list")
                 binding.noApplicationsFound.visibility = View.GONE
                 binding.submittedRv.visibility = View.VISIBLE
-                binding.submittedRv.adapter = SubmittedApplicationsAdapter(
+
+                val adapter = SubmittedApplicationsAdapter(
                     requireContext(), list,
                     appViewModel.eventsList.value!!
                 ) {
                     Toast.makeText(requireContext(), "Generating Ticket...", Toast.LENGTH_SHORT).show()
                 }
+
+                binding.submittedRv.adapter = adapter
+                adapter.setOnClickListener(object : SubmittedApplicationsAdapter.OnClickListener {
+                    override fun onClick() {
+                        val action = SubmittedApplicationsFragmentDirections.actionSubmittedApplicationsFragmentToYourTicketsFragment()
+                        this@SubmittedApplicationsFragment.findNavController().navigate(action)
+                    }
+                })
+
             } else {
                 binding.noApplicationsFound.visibility = View.VISIBLE
                 binding.submittedRv.visibility = View.INVISIBLE

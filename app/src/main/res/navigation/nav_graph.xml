@@ -106,6 +106,13 @@
             app:exitAnim="@anim/exit_anim"
             app:popEnterAnim="@anim/pop_enter_anim"
             app:popExitAnim="@anim/pop_exit_anim"/>
+        <action
+            android:id="@+id/action_profileFragment_to_yourTicketsFragment"
+            app:destination="@id/yourTicketsFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/pop_enter_anim"
+            app:popExitAnim="@anim/pop_exit_anim"/>
     </fragment>
     <fragment
         android:id="@+id/eventDetailFragment"
@@ -134,5 +141,18 @@
         android:id="@+id/submittedApplicationsFragment"
         android:name="com.lrm.gdgvizag.fragments.SubmittedApplicationsFragment"
         android:label="SubmittedApplicationsFragment"
-        tools:layout="@layout/fragment_submitted_applications"/>
+        tools:layout="@layout/fragment_submitted_applications">
+        <action
+            android:id="@+id/action_submittedApplicationsFragment_to_yourTicketsFragment"
+            app:destination="@id/yourTicketsFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/pop_enter_anim"
+            app:popExitAnim="@anim/pop_exit_anim"/>
+    </fragment>
+    <fragment
+        android:id="@+id/yourTicketsFragment"
+        android:name="com.lrm.gdgvizag.fragments.YourTicketsFragment"
+        android:label="YourTicketsFragment"
+        tools:layout="@layout/fragment_your_tickets"/>
 </navigation>

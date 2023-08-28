@@ -73,6 +73,8 @@
     <string name="application_accepted">Application Accepted…?</string>
     <string name="generate_ticket">Generate Ticket</string>
     <string name="no_submitted_applications_found">No submitted applications found</string>
+    <string name="ticket_generated_text">Your ticket was generated…</string>
+    <string name="go_to">Go to</string>
 
     <string-array name="gender_array">
         <item>he/him</item>

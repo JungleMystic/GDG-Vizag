@@ -186,6 +186,7 @@ class EventRegistrationFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+
         val genders = resources.getStringArray(R.array.gender_array)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.drop_down_tv, genders)
         binding.genderActv.setAdapter(arrayAdapter)

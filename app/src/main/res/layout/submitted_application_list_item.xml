@@ -25,7 +25,7 @@
             android:layout_height="100dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             tools:src="@drawable/devfest_2023"/>
 
@@ -106,7 +106,9 @@
             android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/application_status_head"
             app:layout_constraintStart_toStartOf="@id/application_status_head"
-            android:layout_marginTop="20dp" />
+            app:layout_constraintBottom_toTopOf="@id/divider"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"/>
 
         <TextView
             android:id="@+id/acceptance_status"
@@ -121,12 +123,21 @@
             app:layout_constraintBottom_toBottomOf="@id/acceptance_status_head"
             android:layout_marginStart="10dp"/>
 
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintTop_toBottomOf="@id/acceptance_status_head"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@android:color/transparent"/>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/generate_ticket"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="false"
-            app:layout_constraintTop_toBottomOf="@id/acceptance_status_head"
+            app:layout_constraintTop_toBottomOf="@id/acceptance_status"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="20dp"
             android:layout_marginStart="40dp"
@@ -134,7 +145,73 @@
             android:layout_marginBottom="20dp"
             android:backgroundTint="@color/gl_blue"
             android:text="@string/generate_ticket"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:visibility="gone"/>
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/dotted_line"
+            app:layout_constraintTop_toBottomOf="@id/acceptance_status_head"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/ticket_generated_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ticket_generated_text"
+            android:fontFamily="@font/quicksand_regular"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/divider2"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="20dp"
+            android:visibility="gone"
+            android:gravity="center"/>
+
+        <LinearLayout
+            android:id="@+id/go_to_tickets_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/ticket_generated_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:gravity="center"
+            android:layout_marginBottom="30dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/go_to_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/go_to"
+                android:fontFamily="@font/quicksand_regular"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/your_tickets"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/your_tickets"
+                android:fontFamily="@font/quicksand_bold"
+                android:textColor="@color/gl_blue"
+                android:textSize="16sp"
+                android:layout_marginStart="5dp" />
+
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
