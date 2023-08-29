@@ -23,6 +23,7 @@ import com.lrm.gdgvizag.model.EventDetail
 import com.lrm.gdgvizag.model.EventRegistration
 import com.lrm.gdgvizag.model.Organizer
 import com.lrm.gdgvizag.model.Partner
+import com.lrm.gdgvizag.model.QrCode
 import com.lrm.gdgvizag.model.User
 import com.lrm.gdgvizag.utils.LoadingDialog
 import kotlinx.coroutines.launch
@@ -58,6 +59,9 @@ class AppViewModel : ViewModel() {
 
     private val _submittedApplicationList = MutableLiveData<MutableList<EventRegistration>>(mutableListOf())
     val submittedApplicationList: LiveData<MutableList<EventRegistration>> get() = _submittedApplicationList
+
+    private val _yourTicketsList = MutableLiveData<MutableList<QrCode>>(mutableListOf())
+    val yourTicketsList: LiveData<MutableList<QrCode>> get() = _yourTicketsList
 
     private fun setOnlineStatus(status: Boolean) {
         _onlineStatus.value = status
@@ -211,12 +215,30 @@ class AppViewModel : ViewModel() {
 
                     for (document in documents) {
                         val application = document.toObject(EventRegistration::class.java)
-                        if (application.mailId == auth.currentUser?.email) {
+                        if (application.mailId == mailId) {
                             _submittedApplicationList.value?.add(application)
                         }
                     }
                     _submittedApplicationList.postValue(_submittedApplicationList.value)
                     Log.i(TAG, "getSubmittedApplications: ${_submittedApplicationList.value}")
+                }
+        }
+    }
+
+    fun getTickets(mailId: String) {
+        viewModelScope.launch {
+            db.collection("QR_Codes").get()
+                .addOnSuccessListener {documents ->
+                    _yourTicketsList.value?.clear()
+
+                    for (document in documents) {
+                        val ticket = document.toObject(QrCode::class.java)
+                        if (ticket.mailId == auth.currentUser?.email) {
+                            _yourTicketsList.value?.add(ticket)
+                        }
+                    }
+                    _yourTicketsList.postValue(_yourTicketsList.value)
+                    Log.i(TAG, "getTickets: ${_yourTicketsList.value}")
                 }
         }
     }

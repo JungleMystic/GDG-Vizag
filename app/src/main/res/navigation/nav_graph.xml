@@ -154,5 +154,18 @@
         android:id="@+id/yourTicketsFragment"
         android:name="com.lrm.gdgvizag.fragments.YourTicketsFragment"
         android:label="YourTicketsFragment"
-        tools:layout="@layout/fragment_your_tickets"/>
+        tools:layout="@layout/fragment_your_tickets">
+        <action
+            android:id="@+id/action_yourTicketsFragment_to_scanQrCodeFragment"
+            app:destination="@id/scanQrCodeFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/pop_enter_anim"
+            app:popExitAnim="@anim/pop_exit_anim"/>
+    </fragment>
+    <fragment
+        android:id="@+id/scanQrCodeFragment"
+        android:name="com.lrm.gdgvizag.fragments.ScanQrCodeFragment"
+        android:label="ScanQrCodeFragment"
+        tools:layout="@layout/fragment_scan_qr_code"/>
 </navigation>

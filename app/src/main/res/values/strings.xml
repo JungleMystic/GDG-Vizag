@@ -75,6 +75,9 @@
     <string name="no_submitted_applications_found">No submitted applications found</string>
     <string name="ticket_generated_text">Your ticket was generated…</string>
     <string name="go_to">Go to</string>
+    <string name="no_tickets">No Tickets are generated…</string>
+    <string name="show_ticket">Show Ticket</string>
+    <string name="scan">Scan</string>
 
     <string-array name="gender_array">
         <item>he/him</item>

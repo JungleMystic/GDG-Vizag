@@ -71,6 +71,11 @@ class ProfileFragment : Fragment() {
             this.findNavController().navigate(action)
         }
 
+        binding.yourTicketsCard.setOnClickListener {
+            val action = ProfileFragmentDirections.actionProfileFragmentToYourTicketsFragment()
+            this.findNavController().navigate(action)
+        }
+
         binding.yourEventsCard.setOnClickListener {
             val action = ProfileFragmentDirections.actionProfileFragmentToSubmittedApplicationsFragment()
             this.findNavController().navigate(action)

@@ -89,7 +89,6 @@ class SubmittedApplicationsFragment : Fragment() {
                         this@SubmittedApplicationsFragment.findNavController().navigate(action)
                     }
                 })
-
             } else {
                 binding.noApplicationsFound.visibility = View.VISIBLE
                 binding.submittedRv.visibility = View.INVISIBLE
@@ -99,19 +98,10 @@ class SubmittedApplicationsFragment : Fragment() {
 
     private fun generateTicket(eventReg: EventRegistration, event: Event) {
         loadingDialog = LoadingDialog(requireActivity())
+
         val qrCode = generateQrCode(eventReg.mailId)
         val customQrCodeDialog = ShowQrCodeDialog(requireActivity(), requireContext())
         customQrCodeDialog.showInfo(qrCode, eventReg, event)
-
-        val applicationId = eventReg.applicationId
-
-        val db = Firebase.firestore
-        db.collection("eventRegistration").document(applicationId).update("ticketGenerated", "true")
-            .addOnSuccessListener {
-                Log.d(TAG, "DocumentSnapshot successfully updated!")
-                appViewModel.getSubmittedApplications(userMail)
-            }
-            .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
 
         uploadToFireStore(qrCode, eventReg)
     }
@@ -143,14 +133,23 @@ class SubmittedApplicationsFragment : Fragment() {
     }
 
     private fun uploadDataToFirestore(qrCodeLink: String, eventReg: EventRegistration) {
-        val db = Firebase.firestore
 
+        val applicationId = eventReg.applicationId
+
+        val db = Firebase.firestore
         val qrCode = QrCode("false", qrCodeLink, eventReg.eventId, eventReg.mailId)
 
         lifecycleScope.launch {
             db.collection("QR_Codes").document(eventReg.applicationId).set(qrCode)
                 .addOnSuccessListener {
                     loadingDialog.dismissDialog()
+                    db.collection("eventRegistration").document(applicationId).update("ticketGenerated", "true")
+                        .addOnSuccessListener {
+                            Log.d(TAG, "DocumentSnapshot successfully updated!")
+                            appViewModel.getSubmittedApplications(userMail)
+                        }
+                        .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
+
                     Toast.makeText(requireContext(), "Ticket Generated Successfully...", Toast.LENGTH_SHORT).show()
                 }
                 .addOnFailureListener {
