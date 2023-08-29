@@ -15,7 +15,7 @@ class SubmittedApplicationsAdapter(
     private val context: Context,
     private val submittedApplicationList: List<EventRegistration>,
     private val eventsList: List<Event>,
-    private val onItemClicked: (EventRegistration) -> Unit,
+    private val onItemClicked: (EventRegistration, Event) -> Unit,
 ) : RecyclerView.Adapter<SubmittedApplicationsAdapter.ApplicationViewHolder>() {
 
     private var onClickListener: OnClickListener? = null
@@ -31,12 +31,12 @@ class SubmittedApplicationsAdapter(
             binding.eventDate.text = event.eventDate
         }
 
-        fun bindApplicationStatus(eventReg: EventRegistration) {
+        fun bindApplicationStatus(eventReg: EventRegistration, event: Event) {
             binding.applicationStatus.text = eventReg.applicationStatus
             binding.acceptanceStatus.text = eventReg.acceptanceStatus
             if (eventReg.acceptanceStatus == "Accepted" && eventReg.ticketGenerated == "false") {
                 binding.generateTicket.visibility = View.VISIBLE
-                binding.generateTicket.setOnClickListener { onItemClicked(eventReg) }
+                binding.generateTicket.setOnClickListener { onItemClicked(eventReg, event) }
             } else binding.generateTicket.visibility = View.GONE
 
             if (eventReg.ticketGenerated == "true") {
@@ -77,8 +77,8 @@ class SubmittedApplicationsAdapter(
 
     override fun onBindViewHolder(holder: ApplicationViewHolder, position: Int) {
         val submittedApplication = submittedApplicationList[position]
-        holder.bindApplicationStatus(submittedApplication)
         val event = eventsList.single { it.eventId == submittedApplication.eventId }
         holder.bind(event)
+        holder.bindApplicationStatus(submittedApplication, event)
     }
 }
