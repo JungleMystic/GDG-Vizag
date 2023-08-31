@@ -78,6 +78,7 @@
     <string name="no_tickets">No Tickets are generated…</string>
     <string name="show_ticket">Show Ticket</string>
     <string name="scan">Scan</string>
+    <string name="scan_qr_code">Scan QR Code</string>
 
     <string-array name="gender_array">
         <item>he/him</item>

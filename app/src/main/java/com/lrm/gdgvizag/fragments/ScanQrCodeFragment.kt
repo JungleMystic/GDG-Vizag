@@ -1,17 +1,27 @@
 package com.lrm.gdgvizag.fragments
 
-import android.content.Intent
+import android.Manifest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.fragment.app.Fragment
-import com.google.zxing.integration.android.IntentIntegrator
+import com.google.common.util.concurrent.ListenableFuture
+import com.lrm.gdgvizag.constants.PermissionCodes
 import com.lrm.gdgvizag.databinding.FragmentScanQrCodeBinding
+import com.vmadalin.easypermissions.EasyPermissions
+import com.vmadalin.easypermissions.dialogs.SettingsDialog
+import java.util.concurrent.ExecutorService
 
-class ScanQrCodeFragment : Fragment() {
+class ScanQrCodeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
+
     private var _binding: FragmentScanQrCodeBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
+    private lateinit var cameraExecutor: ExecutorService
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,25 +35,46 @@ class ScanQrCodeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.scanButton.setOnClickListener { scanQrCode() }
+        if (!hasPermission()) requestPermission()
+
     }
 
     private fun scanQrCode() {
-        val integrator = IntentIntegrator(requireActivity())
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)
-        integrator.setPrompt("scan")
-        integrator.setCameraId(0)
-        integrator.setBeepEnabled(false)
-        integrator.setBarcodeImageEnabled(false)
-        integrator.initiateScan()
+
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        val scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-        scanResult.let {
-            binding.scanResultTv.text = scanResult.contents
+    private fun hasPermission(): Boolean {
+        return EasyPermissions.hasPermissions(requireContext(), Manifest.permission.CAMERA)
+    }
+
+    override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
+        if (EasyPermissions.permissionPermanentlyDenied(this, perms.first())) {
+            SettingsDialog.Builder(requireContext()).build().show()
         }
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
+        Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun requestPermission() {
+        EasyPermissions.requestPermissions(
+            this,
+            "Permission is required to make call",
+            PermissionCodes.CAMERA_PERMISSION_CODE,
+            Manifest.permission.CALL_PHONE
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        //EasyPermissions handles the request result
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 
     override fun onDestroyView() {
