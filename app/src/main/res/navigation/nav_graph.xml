@@ -167,5 +167,6 @@
         android:id="@+id/scanQrCodeFragment"
         android:name="com.lrm.gdgvizag.fragments.ScanQrCodeFragment"
         android:label="ScanQrCodeFragment"
-        tools:layout="@layout/fragment_scan_qr_code"/>
+        tools:layout="@layout/fragment_scan_qr_code">
+    </fragment>
 </navigation>

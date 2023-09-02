@@ -23,7 +23,6 @@ import com.lrm.gdgvizag.model.EventRegistration
 import com.lrm.gdgvizag.model.User
 import com.lrm.gdgvizag.utils.LoadingDialog
 import com.lrm.gdgvizag.viewmodel.ProfileViewModel
-import java.util.UUID
 import java.util.regex.Pattern
 
 class EventRegistrationFragment : Fragment() {
@@ -139,11 +138,11 @@ class EventRegistrationFragment : Fragment() {
             careerStatus, orgUnivName, techInterests, whyThisEvent)) {
             loadingDialog.startLoading()
 
-            val applicationId = "${eventId}_${UUID.randomUUID()}"
+            val applicationId = "${eventId}_$mail"
             val application = EventRegistration(applicationId, eventId, name, mail,
                 phoneNum, gender, careerStatus, orgUnivName,
                 techInterests, whyThisEvent, "",
-                "Submitted", "Pending", "false")
+                "Submitted. Pending for approval", "false")
 
             Log.i(TAG, "submitDataToFirestore: $application")
             uploadDataToFirestore(application)

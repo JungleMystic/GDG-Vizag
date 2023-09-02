@@ -79,6 +79,10 @@
     <string name="show_ticket">Show Ticket</string>
     <string name="scan">Scan</string>
     <string name="scan_qr_code">Scan QR Code</string>
+    <string name="application_id">Application ID :</string>
+    <string name="applicant_details">Applicant Details</string>
+    <string name="name_head">Name</string>
+    <string name="application_not_found">Application not found…</string>
 
     <string-array name="gender_array">
         <item>he/him</item>

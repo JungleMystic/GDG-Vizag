@@ -33,8 +33,7 @@ class SubmittedApplicationsAdapter(
 
         fun bindApplicationStatus(eventReg: EventRegistration, event: Event) {
             binding.applicationStatus.text = eventReg.applicationStatus
-            binding.acceptanceStatus.text = eventReg.acceptanceStatus
-            if (eventReg.acceptanceStatus == "Accepted" && eventReg.ticketGenerated == "false") {
+            if (eventReg.applicationStatus == "Accepted" && eventReg.ticketGenerated == "false") {
                 binding.generateTicket.visibility = View.VISIBLE
                 binding.generateTicket.setOnClickListener { onItemClicked(eventReg, event) }
             } else binding.generateTicket.visibility = View.GONE

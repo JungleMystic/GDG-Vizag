@@ -1,20 +1,25 @@
 package com.lrm.gdgvizag.fragments
 
+import android.Manifest
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.lrm.gdgvizag.adapter.YourTicketsAdapter
+import com.lrm.gdgvizag.constants.PermissionCodes
 import com.lrm.gdgvizag.constants.TAG
 import com.lrm.gdgvizag.databinding.FragmentYourTicketsBinding
 import com.lrm.gdgvizag.viewmodel.AppViewModel
 import com.lrm.gdgvizag.viewmodel.ProfileViewModel
+import com.vmadalin.easypermissions.EasyPermissions
+import com.vmadalin.easypermissions.dialogs.SettingsDialog
 
-class YourTicketsFragment : Fragment() {
+class YourTicketsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
     private var _binding: FragmentYourTicketsBinding? = null
     private val binding get() = _binding!!
@@ -57,9 +62,47 @@ class YourTicketsFragment : Fragment() {
         }
 
         binding.qrCodeIcon.setOnClickListener {
-            val action = YourTicketsFragmentDirections.actionYourTicketsFragmentToScanQrCodeFragment()
-            this.findNavController().navigate(action)
+            if (hasPermission()) {
+                val action = YourTicketsFragmentDirections.actionYourTicketsFragmentToScanQrCodeFragment()
+                this.findNavController().navigate(action)
+            } else {
+                requestPermission()
+            }
         }
+    }
+
+    private fun hasPermission(): Boolean {
+        return EasyPermissions.hasPermissions(requireContext(), Manifest.permission.CAMERA)
+    }
+
+    override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
+        if (EasyPermissions.permissionPermanentlyDenied(this, perms.first())) {
+            SettingsDialog.Builder(requireContext()).build().show()
+        }
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
+        Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun requestPermission() {
+        EasyPermissions.requestPermissions(
+            this,
+            "Permission is required to make call",
+            PermissionCodes.CAMERA_PERMISSION_CODE,
+            Manifest.permission.CAMERA
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        //EasyPermissions handles the request result
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 
     override fun onDestroyView() {

@@ -13,6 +13,5 @@ data class EventRegistration(
     val whyThisEvent: String = "",
     val githubLink: String = "",
     val applicationStatus: String = "",
-    val acceptanceStatus: String = "",
     val ticketGenerated: String = ""
 )

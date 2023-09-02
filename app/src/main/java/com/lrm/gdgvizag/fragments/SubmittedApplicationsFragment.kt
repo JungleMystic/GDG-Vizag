@@ -99,7 +99,7 @@ class SubmittedApplicationsFragment : Fragment() {
     private fun generateTicket(eventReg: EventRegistration, event: Event) {
         loadingDialog = LoadingDialog(requireActivity())
 
-        val qrCode = generateQrCode(eventReg.mailId)
+        val qrCode = generateQrCode(eventReg.applicationId)
         val customQrCodeDialog = ShowQrCodeDialog(requireActivity(), requireContext())
         customQrCodeDialog.showInfo(qrCode, eventReg, event)
 
@@ -137,7 +137,7 @@ class SubmittedApplicationsFragment : Fragment() {
         val applicationId = eventReg.applicationId
 
         val db = Firebase.firestore
-        val qrCode = QrCode("false", qrCodeLink, eventReg.eventId, eventReg.mailId)
+        val qrCode = QrCode("false", qrCodeLink, eventReg.applicationId, eventReg.mailId, eventReg.eventId, "")
 
         lifecycleScope.launch {
             db.collection("QR_Codes").document(eventReg.applicationId).set(qrCode)

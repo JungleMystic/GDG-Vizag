@@ -131,22 +131,23 @@ dependencies {
     implementation ("com.google.zxing:core:3.5.2")
     implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
 
+    implementation ("com.google.android.gms:play-services-code-scanner:16.1.0")
+
     //ML Kit Barcode Scanning
     implementation ("com.google.mlkit:barcode-scanning:17.2.0")
 
     // CameraX core library using the camera2 implementation
-    val camerax_version = "1.3.0-rc01"
     // The following line is optional, as the core library is included indirectly by camera-camera2
-    implementation("androidx.camera:camera-core:${camerax_version}")
-    implementation("androidx.camera:camera-camera2:${camerax_version}")
+    implementation("androidx.camera:camera-core:1.2.3")
+    implementation("androidx.camera:camera-camera2:1.2.3")
     // If you want to additionally use the CameraX Lifecycle library
-    implementation("androidx.camera:camera-lifecycle:${camerax_version}")
+    implementation("androidx.camera:camera-lifecycle:1.2.3")
     // If you want to additionally use the CameraX View class
-    implementation("androidx.camera:camera-view:${camerax_version}")
+    implementation("androidx.camera:camera-view:1.2.3")
     // If you want to additionally add CameraX ML Kit Vision Integration
-    implementation("androidx.camera:camera-mlkit-vision:${camerax_version}")
+    implementation("androidx.camera:camera-mlkit-vision:1.3.0-beta02")
     // If you want to additionally use the CameraX Extensions library
-    implementation("androidx.camera:camera-extensions:${camerax_version}")
+    implementation("androidx.camera:camera-extensions:1.2.3")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

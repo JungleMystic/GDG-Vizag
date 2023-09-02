@@ -2,9 +2,6 @@ package com.lrm.gdgvizag.viewmodel
 
 import android.app.Activity
 import android.content.Context
-import android.net.ConnectivityManager
-import android.net.Network
-import android.net.NetworkCapabilities
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
@@ -31,10 +28,6 @@ import kotlinx.coroutines.launch
 class AppViewModel : ViewModel() {
 
     private var db: FirebaseFirestore = Firebase.firestore
-    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
-
-    private val _onlineStatus = MutableLiveData(false)
-    val onlineStatus: LiveData<Boolean> get() = _onlineStatus
 
     private val _imagesList = MutableLiveData<MutableList<String>>(mutableListOf())
     val imagesList: LiveData<MutableList<String>> get() = _imagesList
@@ -57,53 +50,27 @@ class AppViewModel : ViewModel() {
     private val _eventDetail = MutableLiveData<EventDetail>()
     val eventDetail: LiveData<EventDetail> get() = _eventDetail
 
-    private val _submittedApplicationList = MutableLiveData<MutableList<EventRegistration>>(mutableListOf())
+    private val _submittedApplicationList =
+        MutableLiveData<MutableList<EventRegistration>>(mutableListOf())
     val submittedApplicationList: LiveData<MutableList<EventRegistration>> get() = _submittedApplicationList
 
     private val _yourTicketsList = MutableLiveData<MutableList<QrCode>>(mutableListOf())
     val yourTicketsList: LiveData<MutableList<QrCode>> get() = _yourTicketsList
 
-    private fun setOnlineStatus(status: Boolean) {
-        _onlineStatus.value = status
+    private val _scanResult = MutableLiveData<String>("")
+    val scanResult: LiveData<String> get() = _scanResult
+
+    private val _applicationResult = MutableLiveData<EventRegistration?>()
+    val applicationResult: LiveData<EventRegistration?> get() = _applicationResult
+
+    /*private val _onlineStatus = MutableLiveData(false)
+    val onlineStatus: LiveData<Boolean> get() = _onlineStatus*/
+
+    fun setScanResult(result: String) {
+        _scanResult.value = result
+        Log.i(TAG, "setBarcodeList: ${_scanResult.value}")
     }
 
-    fun isOnline(context: Context): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val capabilities =
-            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-        if (capabilities != null) {
-            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
-                return true
-            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
-                return true
-            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-                Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
-                return true
-            }
-        }
-        return false
-    }
-
-    fun checkForInternet(context: Context) {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-        connectivityManager.registerDefaultNetworkCallback(object :
-            ConnectivityManager.NetworkCallback() {
-            override fun onAvailable(network: Network) {
-                super.onAvailable(network)
-                setOnlineStatus(true)
-            }
-
-            override fun onLost(network: Network) {
-                super.onLost(network)
-                setOnlineStatus(false)
-            }
-        })
-    }
 
     fun getImages() {
         Log.i(TAG, "getImages is called")
@@ -194,7 +161,7 @@ class AppViewModel : ViewModel() {
         loadingDialog.startLoading()
         viewModelScope.launch {
             db.collection("event_detail").document(eventId).get()
-                .addOnSuccessListener {result->
+                .addOnSuccessListener { result ->
                     if (result.exists()) {
                         loadingDialog.dismissDialog()
                         //Log.i(TAG, "getEventDetailedData: result data -> ${result.data}")
@@ -207,10 +174,28 @@ class AppViewModel : ViewModel() {
         }
     }
 
+    fun getApplication(context: Context, applicationId: String) {
+        viewModelScope.launch {
+            db.collection("eventRegistration").document(applicationId).get()
+                .addOnSuccessListener {
+                    if (it.exists()) {
+                        val application = it.toObject(EventRegistration::class.java)
+                        _applicationResult.value = application!!
+                    } else {
+                        _applicationResult.value = null
+                        Toast.makeText(context, "Application not found...", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .addOnFailureListener {
+                    Log.i(TAG, "getApplication: exception -> ${it.message}")
+                }
+        }
+    }
+
     fun getSubmittedApplications(mailId: String) {
         viewModelScope.launch {
             db.collection("eventRegistration").get()
-                .addOnSuccessListener {documents ->
+                .addOnSuccessListener { documents ->
                     _submittedApplicationList.value?.clear()
 
                     for (document in documents) {
@@ -228,12 +213,12 @@ class AppViewModel : ViewModel() {
     fun getTickets(mailId: String) {
         viewModelScope.launch {
             db.collection("QR_Codes").get()
-                .addOnSuccessListener {documents ->
+                .addOnSuccessListener { documents ->
                     _yourTicketsList.value?.clear()
 
                     for (document in documents) {
                         val ticket = document.toObject(QrCode::class.java)
-                        if (ticket.mailId == auth.currentUser?.email) {
+                        if (ticket.mailId == mailId) {
                             _yourTicketsList.value?.add(ticket)
                         }
                     }
@@ -278,4 +263,47 @@ class AppViewModel : ViewModel() {
                 }
         }
     }
+
+    /*
+     private fun setOnlineStatus(status: Boolean) {
+            _onlineStatus.value = status
+        }
+
+    fun isOnline(context: Context): Boolean {
+            val connectivityManager =
+                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val capabilities =
+                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            if (capabilities != null) {
+                if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                    return true
+                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                    return true
+                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                    return true
+                }
+            }
+            return false
+        }
+
+        fun checkForInternet(context: Context) {
+            val connectivityManager =
+                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+            connectivityManager.registerDefaultNetworkCallback(object :
+                ConnectivityManager.NetworkCallback() {
+                override fun onAvailable(network: Network) {
+                    super.onAvailable(network)
+                    setOnlineStatus(true)
+                }
+
+                override fun onLost(network: Network) {
+                    super.onLost(network)
+                    setOnlineStatus(false)
+                }
+            })
+        }*/
 }
