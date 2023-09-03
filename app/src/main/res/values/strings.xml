@@ -83,6 +83,8 @@
     <string name="applicant_details">Applicant Details</string>
     <string name="name_head">Name</string>
     <string name="application_not_found">Application not found…</string>
+    <string name="check_in">Check In</string>
+    <string name="already_checked_in">Already checked in...</string>
 
     <string-array name="gender_array">
         <item>he/him</item>

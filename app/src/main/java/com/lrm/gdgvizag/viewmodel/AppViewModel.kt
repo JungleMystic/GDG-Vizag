@@ -63,6 +63,9 @@ class AppViewModel : ViewModel() {
     private val _applicationResult = MutableLiveData<EventRegistration?>()
     val applicationResult: LiveData<EventRegistration?> get() = _applicationResult
 
+    private val _scannedTicketResult = MutableLiveData<QrCode?>()
+    val scannedTicketResult: LiveData<QrCode?> get() = _scannedTicketResult
+
     /*private val _onlineStatus = MutableLiveData(false)
     val onlineStatus: LiveData<Boolean> get() = _onlineStatus*/
 
@@ -184,6 +187,24 @@ class AppViewModel : ViewModel() {
                     } else {
                         _applicationResult.value = null
                         Toast.makeText(context, "Application not found...", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .addOnFailureListener {
+                    Log.i(TAG, "getApplication: exception -> ${it.message}")
+                }
+        }
+    }
+
+    fun getScannedTicketInfo(applicationId: String) {
+        viewModelScope.launch {
+            db.collection("QR_Codes").document(applicationId).get()
+                .addOnSuccessListener {
+                    if (it.exists()) {
+                        val ticket = it.toObject(QrCode::class.java)
+                        _scannedTicketResult.value = ticket!!
+                    } else {
+                        _applicationResult.value = null
+                        Log.i(TAG, "getScannedTicketInfo: Ticket not found with application Id -> $applicationId")
                     }
                 }
                 .addOnFailureListener {

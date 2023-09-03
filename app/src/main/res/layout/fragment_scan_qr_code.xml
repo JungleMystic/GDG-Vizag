@@ -251,6 +251,49 @@
                         android:layout_marginEnd="20dp"
                         android:gravity="center_vertical"/>
 
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/check_in_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/check_in"
+                        app:layout_constraintTop_toBottomOf="@id/profile_mail"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:backgroundTint="@color/gl_blue"
+                        android:layout_marginTop="30dp"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/ticket_scanned_already"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/profile_mail"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:text="@string/already_checked_in"
+                        android:textColor="@color/gl_red"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:textSize="18sp"
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
+
+                    <TextView
+                        android:id="@+id/scanned_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/ticket_scanned_already"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        tools:text="24/08/2000 06:00:00"
+                        android:textColor="@color/gl_blue"
+                        android:fontFamily="@font/quicksand_regular"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>

@@ -10,6 +10,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.common.moduleinstall.ModuleInstall
+import com.google.android.gms.common.moduleinstall.ModuleInstallRequest
+import com.google.mlkit.vision.codescanner.GmsBarcodeScanning
 import com.lrm.gdgvizag.adapter.YourTicketsAdapter
 import com.lrm.gdgvizag.constants.PermissionCodes
 import com.lrm.gdgvizag.constants.TAG
@@ -82,6 +85,21 @@ class YourTicketsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
+        val moduleInstall = ModuleInstall.getClient(requireContext())
+        val installRequest = ModuleInstallRequest.newBuilder()
+            .addApi(GmsBarcodeScanning.getClient(requireContext()))
+            .build()
+
+        moduleInstall.installModules(installRequest)
+            .addOnSuccessListener {
+                if (it.areModulesAlreadyInstalled()){
+                    Log.i(TAG, "setupScanner: ModuleInstallRequest -> Modules are already installed when the request is sent.")
+                }
+            }
+            .addOnFailureListener {
+                Log.i(TAG, "setupScanner: ModuleInstallRequest is failed.")
+            }
+
         Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT).show()
     }
 

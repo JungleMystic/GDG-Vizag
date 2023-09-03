@@ -11,6 +11,8 @@ import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.google.android.gms.common.moduleinstall.ModuleInstall
 import com.google.android.gms.common.moduleinstall.ModuleInstallRequest
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.codescanner.GmsBarcodeScannerOptions
 import com.google.mlkit.vision.codescanner.GmsBarcodeScanning
@@ -19,7 +21,11 @@ import com.lrm.gdgvizag.constants.TAG
 import com.lrm.gdgvizag.databinding.FragmentScanQrCodeBinding
 import com.lrm.gdgvizag.model.Event
 import com.lrm.gdgvizag.model.EventRegistration
+import com.lrm.gdgvizag.utils.LoadingDialog
 import com.lrm.gdgvizag.viewmodel.AppViewModel
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class ScanQrCodeFragment : Fragment() {
 
@@ -27,6 +33,7 @@ class ScanQrCodeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val appViewModel: AppViewModel by activityViewModels()
+    private lateinit var applicationId: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,6 +59,7 @@ class ScanQrCodeFragment : Fragment() {
 
     private fun getDataFromFirebase(applicationId: String) {
         appViewModel.getApplication(requireContext(), applicationId)
+        appViewModel.getScannedTicketInfo(applicationId)
         appViewModel.applicationResult.observe(viewLifecycleOwner) {application ->
             if (application != null) {
                 binding.applicationCard.visibility = View.VISIBLE
@@ -69,6 +77,45 @@ class ScanQrCodeFragment : Fragment() {
                 binding.noApplicationsFound.visibility = View.VISIBLE
             }
         }
+
+        appViewModel.scannedTicketResult.observe(viewLifecycleOwner) { ticket ->
+            if (ticket != null) {
+                if (ticket.scanned == "false") {
+                    binding.checkInButton.visibility = View.VISIBLE
+                    binding.ticketScannedAlready.visibility = View.GONE
+                    binding.scannedTime.visibility = View.GONE
+                    binding.checkInButton.setOnClickListener {
+                        checkInAttendee()
+                    }
+                } else {
+                    binding.checkInButton.visibility = View.GONE
+                    binding.ticketScannedAlready.visibility = View.VISIBLE
+                    binding.scannedTime.visibility = View.VISIBLE
+                    binding.scannedTime.text = ticket.scannedTime
+                }
+            }
+        }
+    }
+
+    private fun checkInAttendee() {
+        val loadingDialog = LoadingDialog(requireActivity())
+        loadingDialog.startLoading()
+
+        val sdf = SimpleDateFormat("dd-MM-yyyy hh:mm a", Locale.getDefault())
+        val currentDate = sdf.format(Date())
+
+        val db = Firebase.firestore
+        db.collection("QR_Codes").document(applicationId).update(
+            "scanned", "true",
+            "scannedTime", currentDate
+            )
+            .addOnSuccessListener {
+                getDataFromFirebase(applicationId)
+                loadingDialog.dismissDialog()
+                Log.d(TAG, "DocumentSnapshot successfully updated!")
+            }
+            .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
+
     }
 
     private fun bindEventData(event: Event) {
@@ -80,12 +127,12 @@ class ScanQrCodeFragment : Fragment() {
     }
 
     private fun bindApplicantData(application: EventRegistration) {
+        applicationId = application.applicationId
         binding.applicantName.text = application.applicantName
         binding.profileMail.text = application.mailId
     }
 
     private fun setupScanner() {
-
         val moduleInstall = ModuleInstall.getClient(requireContext())
         val installRequest = ModuleInstallRequest.newBuilder()
             .addApi(GmsBarcodeScanning.getClient(requireContext()))
